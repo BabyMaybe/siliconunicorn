@@ -1,0 +1,110 @@
+{% extends "blog/base.html" %}
+{% load static %}
+
+{% block title %} Blog Post {% endblock title %}
+
+
+{% block css %}<link rel="stylesheet" type="text/css" href="{% static 'blog/css/post.css' %}" />{% endblock css %}
+
+
+{% block hero %}
+    <h1>{% lorem 4 w random %}</h1>
+{% endblock hero %}
+
+
+{% block top_nav %}
+<nav id="nav-page" class="nav">
+        <a href="" class="nav-item" id="back-btn">&lt;&lt; Previous Post</a>
+        <a href="{% url 'home' %}" class="nav-item" id="home-btn"> == Home ==</a>
+        <a href="" class="nav-item" id="next-btn">Next Post &gt;&gt;</a>
+    </nav>
+{% endblock top_nav %}
+
+
+{% block main %}
+<article id="post-content">
+    {% lorem 5 p  %}
+</article>
+{% endblock main %}
+
+
+{% block post_main %}
+<div id="post-info">
+    <span id="post-author">[SiliconUnicorn]</span>
+    <div id="date-container">
+        <span id="post-date">{% now "n/j/y" %}</span>
+        <span id="post-time">{% now "h:i A" %}</span>
+    </div>
+    <div id="post-hearts" class="heart">
+        <i class="fas fa-heart">
+            <span>999</span>
+        </i>
+    </div>
+</div>
+{% endblock post_main %}
+
+
+{% block bot_nav %}
+<div id="comments">
+        <div id="comments-header">
+            <div class="comments-header-item-left">  <span id="comment-count">{ Comments: 0005 }</span> </div>
+            <div class="comments-header-item-right">  <a href="#new-comment" id="add-comment-link">++Add New Comment++</a> </div>
+        </div>
+        <ul>
+        {% for x in "123" %}
+        <li class="comment-container">
+            <div class="comment-info">
+                <span class="comment-username">{% lorem 1 w random %}</span>
+                <span class="comment-date">{% now "n/j/y" %}</span>
+                <span class="comment-time">{% now "h:i A" %}</span>
+            </div>
+            <div class="comment-background skewed">
+            </div>
+            <div class="comment-content">
+                {% lorem 1 p random %}
+            </div>
+            <div class="comment-controls-background skewed"></div>
+            <div class="comment-controls">
+                <div class="heart comment-heart"><i class="fas fa-heart"><span>999</span></i></div>
+            </div>
+        </li>
+        {% endfor %}
+        </ul>
+    </div>
+
+    <div id="new-comment-area">
+        <a name="new-comment"></a>
+        <h2 id="comment-header">New Comment</h2>
+        <div id="form-container">
+            <form action="" id="comment-form">
+                <div id="input-container">
+                    <span>[Name]</span>
+                    <input type="text" id="name-input">
+                    <span>[Name]</span>
+                </div>
+                <textarea name="" id="comment-input" cols="30" rows="10"></textarea>
+                <input type="submit" value="++ Post ++" id="comment-submit">
+            </form>
+            <div id="middle-stripe"></div>
+        </div>
+    </div>
+{% endblock bot_nav %}
+
+
+{% block footer %}
+<footer id="footer">
+    <div id="footer-lines"></div>
+    <div id="footer-color"></div>
+    <div id="footer-content">
+        <span id="copyright">© Eric Varela</span>
+        <div id="social">
+            <a class="social-icon" href=""><i class="fab fa-facebook"></i></a>
+            <a class="social-icon" href=""><i class="fab fa-github-square"></i></a>
+            <a class="social-icon" href=""><i class="fab fa-linkedin"></i></a>
+            <a class="social-icon" href=""><i class="fab fa-instagram"></i></a>
+            <a class="social-icon" href=""><i class="fab fa-reddit-square"></i></a>
+            <a class="social-icon" href=""><i class="fab fa-vimeo"></i></a>
+        </div>
+    </div>
+</footer>
+{% endblock footer %}

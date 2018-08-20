@@ -1,0 +1,177 @@
+$green: #89f0c8;
+$green-highlight: lighten($green, 15%);
+$grey: #d9d9d9;
+$lightgrey: #e9e9e9;
+$black: #2d2d2d;
+$josefin: 'Josefin Sans', sans-serif;
+$arvo: 'Arvo', serif;
+
+body {
+    display: grid;
+    grid-template-areas: "header" 
+                         "nav-blog" 
+                         "main" 
+                         "nav-page" 
+                         "footer";
+    min-height: 100vh;
+    // grid-template-rows: 428px 64px 1fr 64px 75px;
+    grid-template-rows: auto auto auto auto auto;
+    font-family: $arvo;
+}
+
+// header {
+//     // background: red;
+// }
+
+// nav {
+//     // background: orange;
+// }
+
+// main {
+//     background: yellow;
+// }
+
+// footer {
+//     background: green;
+// }
+
+a {
+    text-decoration: none;
+}
+a:visited {
+    color: initial;
+}
+
+#hero {
+    grid-area: header;
+    background-color: $green;
+    color: $black;
+    background-color: red;
+    
+    h1 {
+        font-size: 10em;
+        font-family: $josefin;
+        text-align: center;
+        margin: 0;
+        margin-top: 40px;
+    }
+}
+
+#accounts {
+    display: flex;
+    justify-content: flex-end;
+    padding: 0 10px;
+    font-size: 1.5em;
+    
+    a {
+        padding: 10px;
+        border: solid transparent 5px;
+        border-bottom: none;
+    }
+
+    a:hover {
+        border-color: $black;
+        background-color: $lightgrey;
+    }
+}
+
+#nav-blog {
+    grid-area: nav-blog;
+    border-top: solid $black 8px;
+}
+
+.shadow-top {
+    background: linear-gradient(rgba(0,0,0,1),rgba(45,45,45,0));
+    width: 100%;
+    height: 50px;
+    position: absolute;
+}
+
+// .shadow-bot {
+#main::after{
+    background: linear-gradient(rgba(45,45,45,0), rgba(0,0,0,1));
+    width: 100%;
+    height: 50px;
+    content: 'helloee';
+    position: absolute; //maybe revisit? 
+}
+
+.nav {
+    display: flex;
+    font-family: $arvo;
+    font-size: 2em;
+    justify-content: space-around;
+    background-color: $grey;
+    align-items: center;
+}
+
+.nav-item {
+    padding: 10px;
+    flex: 1;
+    text-align: center;
+    cursor: pointer;
+}
+
+.nav-item:hover {
+    box-shadow: darken($green,65%) 0 0 15px;
+    background-color: $green-highlight;
+}
+
+.nav-item:active {
+    background-color: $lightgrey;
+}
+
+#main {
+    grid-area: main;
+    background-color: $black;
+    color: $lightgrey;//light blue?
+}
+
+#nav-page {
+    grid-area: nav-page;
+    border-bottom: solid $black 8px;
+}
+
+#footer {
+    grid-area: footer;
+    background-color:$green;
+    display: flex;
+    align-items: baseline;
+    padding: 10px;
+    color: $black;
+}
+
+#social {
+    font-size: 3em;
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    padding: 0 10px;
+    cursor: pointer;
+}
+
+i {
+    color: $black;
+}
+
+i:hover {
+    color: black;
+}
+
+i:active {
+    color: $grey;
+}
+
+.social-icon {
+    margin: 0 10px;
+}
+
+#copyright {
+    font-size: 1.1em;
+}
+
+
+// temporary class for sizing
+#huge {
+    height: 1000px;
+}

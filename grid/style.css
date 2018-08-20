@@ -1,0 +1,54 @@
+body {
+    display: grid;
+    grid-column-gap: 10px;
+    grid-template-areas: "header header header"
+                         "content content sidebar"
+                         "footer footer footer";
+    grid-template-columns: 1fr 1fr .1fr;
+    grid-template-rows: minmax(200px, auto) minmax(50%, auto) minmax(200px, auto)
+
+}
+
+div {
+    background: crimson;
+    color: white;
+    font-family: "Hack", monospace;
+    text-align: center;
+    font-size: 2em;
+    padding: .5em;
+    border-radius: .3em;
+    border: solid white 3px;
+}
+
+#moveme {
+    /* grid-row-start: 1;
+    grid-row-end: 4;
+    grid-column-start: 2;
+    grid-column-end: 4; */
+    /* grid-row:1/7; */
+    grid-row: r1/r3;
+    grid-column: c1/c3;
+    background-color: dodgerblue;
+    transition: 1s;
+}
+
+.header {
+    background-color: pink;
+    grid-area: header;
+}
+
+.content {
+    background-color: limegreen;
+    grid-area: content;
+}
+
+.sidebar {
+    background-color: peachpuff;
+    color: black;
+    grid-area: sidebar;
+}
+
+.footer {
+    background-color: steelblue;
+    grid-area: footer;
+}

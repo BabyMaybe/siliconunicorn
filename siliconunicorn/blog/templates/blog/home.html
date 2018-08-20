@@ -1,0 +1,72 @@
+{% extends "blog/base.html" %}
+{% load static %}
+
+{% block title %} SiliconUnicorn {% endblock title %}
+
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'blog/css/style.css' %}" />
+{% endblock css %}
+
+{% comment %} accounts block in by default {% endcomment %}
+
+{% block hero %}
+<h1>
+    <div>: : Silicon : :</div>
+    <div>\\ Unicorn \\</div>
+</h1>
+{% endblock hero %}
+
+{% comment %} use top nav default {% endcomment %}
+
+
+{% block main %}
+    {% for post in post_list %}
+
+<h2 class="blog-title">{{ post.title }}</h2>
+    <section class="blog-section">
+        <div class="blog-info">
+            <div class="blog-author-box">
+                <span class="blog-author"> {{ post.author }}</span>
+            </div>
+                <div class="blog-date-box">
+                    <span class="blog-time">{{ post.date_published | date:"h:i A" }}</span>
+                    <span class="blog-date">{{ post.date_published | date:"n/j/y" }}</span>
+                </div>
+        </div>
+        <article class="blog-content">
+            {{ post.content | safe }}
+        </article>
+        <div class="blog-tags-container">
+            <h3>Tags</h3>
+            <ul>
+            {% for x in '12345' %}
+                <li class="blog-tag">
+                    #{% lorem 1 w random%}
+                </li>
+            {% endfor %}
+            </ul>
+        </div>
+
+        <div class="blog-comments-box">
+            <div class="heart blog-hearts">
+                <i class="fas fa-heart">
+                    <span>{{ post.likes.count }}</span>
+                </i>
+            </div>
+            <div class="blog-comments"> { Comments: {{ post.post_comments.count }} }</div>
+        </div>
+    </section>
+    {% endfor %}
+{% endblock main %}
+
+{% block post_main %}{% endblock post_main %}
+
+{% block bot_nav %}
+<nav id="nav-page" class="nav">
+    <a href="" class="nav-item" id="back-btn">&lt;&lt; Back</a>
+    <a href="" class="nav-item" id="home-btn"> == Home ==</a>
+    <a href="" class="nav-item" id="next-btn">Next &gt;&gt;</a>
+</nav>
+{% endblock bot_nav %}
+
+{% comment %} use default footer block {% endcomment %}

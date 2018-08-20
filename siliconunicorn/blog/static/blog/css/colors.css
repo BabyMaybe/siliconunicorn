@@ -1,0 +1,42 @@
+#color-display {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  padding-top: 50px;
+}
+
+.red {
+  background-color: #ff455e;
+}
+
+.orange {
+  background-color: #ff7a46;
+}
+
+.yellow {
+  background-color: #ffb847;
+}
+
+.green {
+  background-color: #9cec67;
+}
+
+.mint {
+  background-color: #89f0c8;
+}
+
+.blue {
+  background-color: #7cedfc;
+}
+
+.purple {
+  background-color: #e373ff;
+}
+
+.colorbox {
+  height: 170px;
+  width: 170px;
+}
+/*# sourceMappingURL=colors.css.map */

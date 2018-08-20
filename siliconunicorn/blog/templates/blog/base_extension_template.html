@@ -1,0 +1,28 @@
+{% extends "blog/base.html" %}
+{% load static %}
+
+{% block title %} SiliconUnicorn {% endblock title %}
+
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'blog/css/style.css' %}" />
+{% endblock css %}
+
+{% comment %} uncomment to remove account options {% endcomment %}
+{% comment %} {% block accounts %}{% endblock accounts %} {% endcomment %}
+
+{% block hero %}{% endblock hero %}
+
+{% block top_nav %}{% endblock top_nav %}
+
+{% block pre_main %}{% endblock pre_main %}
+
+{% block main %}{% endblock main %}
+
+{% block post_main %}{% endblock post_main %}
+
+{% block bot_nav %}{% endblock bot_nav %}
+
+{% comment %} uncomment to remove footer {% endcomment %}
+{% comment %} {% block footer %}{% endblock footer %} {% endcomment %}
+
+{% block scripts %}{% endblock scripts %}
