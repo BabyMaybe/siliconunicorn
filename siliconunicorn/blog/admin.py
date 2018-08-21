@@ -28,7 +28,7 @@ class UnicornUserAdmin(UserAdmin):
 
 
 class PostAdmin(admin.ModelAdmin):
-    list_display = ['title', 'author', 'slug', 'date_published',  'like_count', 'comment_count', 'active' ]
+    list_display = ['id', 'title', 'author', 'slug', 'date_published',  'like_count', 'comment_count', 'active' ]
     prepopulated_fields = {'slug': ('title',)}
     actions = [activate, deactivate]
 

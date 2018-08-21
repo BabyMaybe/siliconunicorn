@@ -38,27 +38,32 @@ class Post(models.Model):
     def get_absolute_url(self):
         return "/%s" % self.slug
 
-    # @property
-    # def get_next_post_url(self):
-    #     next = self.pk + 1
-    #     total = Post.objects.all().count()
-    #     while next < total:
-    #         p = Post.objects.get(pk=next)
-    #         if (p.active == True):
-    #             return '/post/' + str(next) + '/' + p.slug
-    #         next += 1
-    #     return '/'
+    @property
+    def get_next_post_url(self):
+        next = self.pk + 1
+        total = Post.objects.latest('id').id
+        while next <= total:
+            try:
+                p = Post.objects.get(pk=next)
+                if (p.active == True):
+                    return '/blog/' + p.slug
+            except Post.DoesNotExist:
+                pass
+            next += 1
+        return '/'
 
-    # @property
-    # def get_prev_post_url(self):
-    #     prev = self.pk - 1
-    #     total = Post.objects.all().count()
-    #     while prev > 0:
-    #         p = Post.objects.get(pk=prev)
-    #         if (p.active == True):
-    #             return '/post/' + str(prev) + '/' + p.slug
-    #         prev -= 1
-    #     return '/'
+    @property
+    def get_prev_post_url(self):
+        prev = self.pk - 1
+        while prev >= 0:
+            try:
+                p = Post.objects.get(pk=prev)
+                if (p and p.active == True):
+                    return '/blog/' + p.slug
+            except Post.DoesNotExist:
+                pass
+            prev -= 1
+        return '/'
 
     def get_like_count(self):
         return self.like_count

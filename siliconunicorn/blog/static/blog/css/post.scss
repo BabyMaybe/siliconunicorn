@@ -96,7 +96,8 @@ body {
         font-size: 1em;
         color: $black;
         span {
-            color: $grey;
+            color: $black;
+            font-weight: 700;
         }
     }
 }
@@ -366,8 +367,6 @@ body {
     }
 }
 
-
-
 #footer {
     overflow: hidden;
     display: grid;
@@ -412,4 +411,22 @@ body {
     padding-top: 3em;
     padding-bottom: 1em;
     font-family: $arvo;
+}
+
+.anon {
+    opacity: .5;
+}
+
+.unregistered {
+    opacity: .5;
+    color: $grey;
+}
+
+.author {
+    // background-color: $post-color;
+    color: $black;
+}
+
+.skewed.author {
+    background-color: $post-color;
 }

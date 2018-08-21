@@ -14,10 +14,10 @@
 
 {% block top_nav %}
 <nav id="nav-page" class="nav">
-        <a href="" class="nav-item" id="back-btn">&lt;&lt; Previous Post</a>
-        <a href="{% url 'home' %}" class="nav-item" id="home-btn"> == Home ==</a>
-        <a href="" class="nav-item" id="next-btn">Next Post &gt;&gt;</a>
-    </nav>
+    <a href="{{ post.get_prev_post_url }}" class="nav-item" id="back-btn">&lt;&lt; Previous Post</a>
+    <a href="{% url 'home' %}" class="nav-item" id="home-btn"> == Home ==</a>
+    <a href="{{ post.get_next_post_url }}" class="nav-item" id="next-btn">Next Post &gt;&gt;</a>
+</nav>
 {% endblock top_nav %}
 
 
@@ -36,7 +36,7 @@
         <span id="post-time">{{ post.date_published | date:"h:i A" }}</span>
     </div>
     <div id="post-hearts" class="heart">
-        <i class="fas fa-heart">
+        <i class="fal fa-heart">
             <span>{{ post.likes.count }}</span>
         </i>
     </div>
@@ -46,48 +46,55 @@
 
 {% block bot_nav %}
 <div id="comments">
-        <div id="comments-header">
-            <div class="comments-header-item-left">  <span id="comment-count">{ Comments: {{ post.post_comments.count | stringformat:"04d" }} }</span> </div>
-            <div class="comments-header-item-right">  <a href="#new-comment" id="add-comment-link">++Add New Comment++</a> </div>
-        </div>
-        <ul>
-        {% for x in "123" %}
-        <li class="comment-container">
-            <div class="comment-info">
-                <span class="comment-username">{% lorem 1 w random %}</span>
-                <span class="comment-date">{% now "n/j/y" %}</span>
-                <span class="comment-time">{% now "h:i A" %}</span>
-            </div>
-            <div class="comment-background skewed">
-            </div>
-            <div class="comment-content">
-                {% lorem 1 p random %}
-            </div>
-            <div class="comment-controls-background skewed"></div>
-            <div class="comment-controls">
-                <div class="heart comment-heart"><i class="fas fa-heart"><span>999</span></i></div>
-            </div>
-        </li>
-        {% endfor %}
-        </ul>
+    <a name="comments"></a>
+    <div id="comments-header">
+        <div class="comments-header-item-left">  <span id="comment-count">{ Comments: {{ post.post_comments.count | stringformat:"04d" }} }</span> </div>
+        <div class="comments-header-item-right">  <a href="#new-comment" id="add-comment-link">++Add New Comment++</a> </div>
     </div>
+    <ul>
+    {% for x in "12345" %}
+    <li class="comment-container">
+        <div class="comment-info {% cycle '' '' '' '' 'author' %}">
+            {% if forloop.counter == 3 %}
+            <span class="unregistered">(unregistered user)</span>
+            {% endif %}
+            <span class="comment-username {% cycle 'user' 'user' 'anon' 'user' 'author' %}">{% lorem 1 w random %}</span>
+            <span class="comment-date">{% now "n/j/y" %}</span>
+            <span class="comment-time">{% now "h:i A" %}</span>
+            {% if forloop.counter == 4 %}
+            <span class="edited">(Edited)</span>
+            {% endif %}
+        </div>
+        <div class="comment-background skewed {% cycle '' '' '' '' 'author' %}">
+        </div>
+        <div class="comment-content">
+            {% lorem 1 p random %}
+        </div>
+        <div class="comment-controls-background skewed"></div>
+        <div class="comment-controls">
+            <div class="heart comment-heart"><i class="fal fa-heart"><span>999</span></i></div>
+        </div>
+    </li>
+    {% endfor %}
+    </ul>
+</div>
 
-    <div id="new-comment-area">
-        <a name="new-comment"></a>
-        <h2 id="comment-header">New Comment</h2>
-        <div id="form-container">
-            <form action="" id="comment-form">
-                <div id="input-container">
-                    <span>[Name]</span>
-                    <input type="text" id="name-input">
-                    <span>[Name]</span>
-                </div>
-                <textarea name="" id="comment-input" cols="30" rows="10"></textarea>
-                <input type="submit" value="++ Post ++" id="comment-submit">
-            </form>
-            <div id="middle-stripe"></div>
-        </div>
+<div id="new-comment-area">
+    <a name="new-comment"></a>
+    <h2 id="comment-header">New Comment</h2>
+    <div id="form-container">
+        <form action="" id="comment-form">
+            <div id="input-container">
+                <span>[Name]</span>
+                <input type="text" id="name-input">
+                <span>[Name]</span>
+            </div>
+            <textarea name="" id="comment-input" cols="30" rows="10"></textarea>
+            <input type="submit" value="++ Post ++" id="comment-submit">
+        </form>
+        <div id="middle-stripe"></div>
     </div>
+</div>
 {% endblock bot_nav %}
 
 
