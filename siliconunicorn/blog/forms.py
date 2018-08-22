@@ -30,10 +30,12 @@ class UnicornUserChangeForm(UserChangeForm):
         fields = ('username', 'email')
 
 
-class PostForm(ModelForm):
+class NewPostForm(ModelForm):
     class Meta:
         model = Post
         fields = ['title', 'content']
+
+
 
 
 class CommentForm(ModelForm):

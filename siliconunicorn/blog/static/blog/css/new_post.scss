@@ -38,23 +38,32 @@ body {
 #main {
     border-top: solid $post-color 6px;
     border-bottom: solid $post-color 6px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0 2em;
+    // display: flex;
+    // justify-content: center;
+    // align-items: center;
+    // padding: 0 2em;
+
+    display: grid;
+    grid-template-areas: ". controls tags"
+                        ". article tags"
+                        ". buttons tags";
+    grid-template-columns: 1fr 42em 1fr;
+    grid-template-rows: 47px 1fr 72px;
+
 }
 
-#new-post-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 100%;
-}
+// #new-post-container {
+//     display: flex;
+//     flex-direction: column;
+//     justify-content: space-between;
+//     height: 100%;
+// }
 
 
 #new-post-controls {
     display: flex;
     margin-top: 5px;
+    grid-area: controls;
 }
 
 .control-panel {
@@ -97,6 +106,8 @@ body {
     outline: none;
     flex: 1;
     background-color: rgba($grey,.05);
+    grid-area: article;
+    height: calc(100% - 2em);
 }
 
 .new-post-button {
@@ -105,8 +116,8 @@ body {
     border-color: $post-color;
     align-self: center;
     outline: none;
-    margin-bottom: 8px;
-    margin-top: 1em;
+    // margin-bottom: 8px;
+    // margin-top: 1em;
     font-family: $arvo;
 }
 
@@ -124,6 +135,7 @@ body {
 #post-buttons {
     display: flex;
     justify-content: space-between;
+    grid-area: buttons;
 }
 
 #footer {
@@ -136,4 +148,66 @@ h2 {
     text-align: right;
     color: $post-color;
     margin-top: 0;
+}
+
+#tags-container {
+    grid-area: tags;
+    height: 100%;
+    width: calc(100% - 2em);
+    margin-left: 0;
+    border: none;
+    font-family: $arvo;
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    #tags-header {
+        // background-color: $post-color;
+        width: 100%;
+        height: 47px;
+        margin-top: 3px;
+        align-items: center;
+        display: flex;
+        border-bottom: solid $post-color 2px;
+
+        h2 {
+            color: $post-color;
+            width: 100%;
+            text-align: center;
+            margin: 0;
+        }
+    }
+
+    // #tags-input{
+    //     width: 100%;
+    //     display: flex;
+    //     justify-content: center;
+    //     align-items: center;
+
+    // }
+
+    #tag-list {
+        flex-direction: row;
+        flex-wrap: wrap;
+        // width: 100%;
+        // flex: 1;
+        margin-top: 1em;
+
+        .blog-tag {
+            flex: 1;
+        }
+
+        .blog-tag:hover{
+            background-color: $post-color;
+        }
+
+        #new-tag {
+            background-color: $black;
+            color: $grey;
+            cursor: auto;
+            flex-basis: 100%;
+            margin-top: 1em;
+        }
+    }
 }

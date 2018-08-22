@@ -9,6 +9,8 @@ btn.addEventListener('click', function(e) {
 
     hiddenForm.title.value = title;
     hiddenForm.content.value = content;
+    hiddenForm.tags.value = currentTags.toString();
+    console.table(hiddenForm.children, ['index','value']);
     hiddenForm.submit()
 });
 

@@ -10,6 +10,15 @@ class UnicornUser(AbstractUser):
         return self.username
 
 
+# Tag Class
+class Tag(models.Model):
+
+    name = models.CharField(max_length=200, unique=True)
+
+    def __str__(self):
+        return self.name
+
+
 #Blog Post Class
 class Post(models.Model):
     def __str__(self):
@@ -25,6 +34,7 @@ class Post(models.Model):
     like_count = models.IntegerField(default=0)
     likes = models.ManyToManyField(UnicornUser, related_name='post_likes', blank=True)
     active = models.BooleanField(default=True)
+    tags = models.ManyToManyField(Tag, blank=True)
 
     class Meta:
         ordering = ["-date_published"]
@@ -34,6 +44,13 @@ class Post(models.Model):
     #         self.like_count = self.likes.count()
     #         self.comment_count = self.post_comments.filter(active=True).count()
     #     super(Post, self).save(*args, **kwargs)
+
+    # def save(self, *args, **kwargs):
+    #     print("********************* ARGS *********************")
+    #     print(args)
+    #     print("********************* KWARGS *********************")
+    #     print(kwargs)
+    #         # super().save(*args, **kwargs)  # Call the "real" save() 
 
     def get_absolute_url(self):
         return "/%s" % self.slug
@@ -71,6 +88,7 @@ class Post(models.Model):
     def get_comment_count(self):
         return self.post_comments.filter(active=True).count()
 
+
 #Comment Class
 class Comment(models.Model):
     def __str__(self):
@@ -94,7 +112,6 @@ class Comment(models.Model):
     def get_like_count(self):
         # return self.like_count
         return self.likes.count()
-
 
     @property
     def is_edited(self):

@@ -11,9 +11,8 @@
     </a>
 </nav>
 {% endblock top_nav %} {% block main %}
-<div id="new-post-container">
-    <form name="compiledForm" id="compiledForm" method="POST">
-    {% csrf_token %}
+{% comment %} <div id="new-post-container"> {% endcomment %}
+
     <div id="new-post-controls">
         <div class="control-panel">
             <div class="control-panel-item" id="bold-btn" onclick="formatDoc('bold');">
@@ -49,20 +48,41 @@
             </div>
         </div>
     </div>
+
     <article id="new-post" class="blog-content" contenteditable="true"><p><b>Enter</b> <i>post</i> <u>here</u>...</p></article>
-    <input type="hidden" name="title" required>
-    <input type="hidden" name="content" required>
-</form>
 
     <div id="post-buttons">
         <button class="new-post-button" id="htmlToggle" onclick="toggleDocMode();">Show HTML</button>
         <button class="new-post-button" value="Post" id="new-post-submit">Post</button>
     </div>
 
+    <form name="compiledForm" id="compiledForm" method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="title" required>
+        <input type="hidden" name="content" required>
+        <input type="hidden" name="tags" required>
+    </form>
+
+{% comment %} </div> {% endcomment %}
+
+<div id="tags-container" class="blog-tags-container">
+    <div id="tags-header">
+        <h2>Add Tags</h2>
+    </div>
+
+    <ul id="tag-list">
+        <li class="blog-tag">#art</li>
+        <li class="blog-tag">#dev</li>
+        <li class="blog-tag">#life</li>
+
+        <input type="text" id="new-tag" placeholder="Add Tags Here" class="blog-tag blog-tag-input">
+    </ul>
 
 </div>
 
 {% endblock main %}
 
 {% block scripts %}
-<script src="{% static 'blog/js/text-editor.js' %}"></script> {% endblock scripts %}
+<script src="{% static 'blog/js/text-editor.js' %}"></script> 
+<script src="{% static 'blog/js/tag-list.js' %}"></script> 
+{% endblock scripts %}

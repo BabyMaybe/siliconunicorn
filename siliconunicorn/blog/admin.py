@@ -3,7 +3,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.admin import UserAdmin
 
 from .forms import UnicornUserCreationForm, UnicornUserChangeForm
-from .models import UnicornUser, Post, Comment
+from .models import UnicornUser, Post, Comment, Tag
 
 ###
 #Admin actions
@@ -40,3 +40,4 @@ class CommentAdmin(admin.ModelAdmin):
 admin.site.register(UnicornUser, UnicornUserAdmin)
 admin.site.register(Post, PostAdmin)
 admin.site.register(Comment, CommentAdmin)
+admin.site.register(Tag)

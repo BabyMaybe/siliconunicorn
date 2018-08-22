@@ -8,8 +8,8 @@ from django.template import loader
 
 from django.utils.text import slugify
 
-from .forms import UnicornUserCreationForm, PostForm
-from .models import Post, UnicornUser
+from .forms import UnicornUserCreationForm, NewPostForm
+from .models import Post, UnicornUser, Tag
 # Create your views here.
 import datetime
 
@@ -37,7 +37,7 @@ class SignUp(CreateView):
 class NewPost(CreateView):
     model = Post
     fields = ['title', 'content']
-    exclude = ['author']
+    # exclude = ['author','tags']
 
     success_url = reverse_lazy('home')
     template_name = 'blog/new_post.html'
@@ -51,6 +51,19 @@ class NewPost(CreateView):
         post = form.save(commit=False)
         post.author = UnicornUser.objects.get(username=self.request.user)
 
+        # create list of tags from request and remove empty strings
+        tags = self.request.POST.get('tags').replace('#','').split(',')
+        tags = list(filter(None, tags))
+
+        for tag in tags:
+            if Tag.objects.filter(name=tag).exists():
+                pass
+            else:
+                new_tag = Tag(name=tag)
+                new_tag.save()
+        all_tags = Tag.objects.filter(name__in=tags)
+        print(all_tags)
+
         timestamp = datetime.datetime.now()
 
         slug = slugify(post.title)
@@ -63,7 +76,9 @@ class NewPost(CreateView):
 
         post.slug = slug
         post.date_published = timestamp
+        post.save()
 
+        post.tags.set(all_tags)
         post.save()
 
         return HttpResponseRedirect('/')
@@ -73,6 +88,14 @@ class MostRecentEntriesList(ListView):
     context_object_name = 'post_list'
     template_name = 'blog/home.html'
     paginate_by = 5
+
+    # def get_context_data(self, **kwargs):
+    #     print('getting context data')
+    #     context = super().get_context_data(**kwargs)
+    #     context["tags"] = self.get_object.tags.all().order_by('name')
+    #     print(context)
+    #     print(context["tags"])
+    #     return context
 
 class PostDetail(DetailView):
     model = Post
