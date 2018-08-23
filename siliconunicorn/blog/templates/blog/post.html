@@ -14,9 +14,9 @@
 
 {% block top_nav %}
 <nav id="nav-page" class="nav">
-    <a href="{{ post.get_prev_post_url }}" class="nav-item" id="back-btn">&lt;&lt; Previous Post</a>
+    <a href="{{ post.get_next_post_url }}" class="nav-item" id="next-btn">&lt;&lt; Newer Post</a>
     <a href="{% url 'home' %}" class="nav-item" id="home-btn"> == Home ==</a>
-    <a href="{{ post.get_next_post_url }}" class="nav-item" id="next-btn">Next Post &gt;&gt;</a>
+    <a href="{{ post.get_prev_post_url }}" class="nav-item" id="back-btn">Older Post &gt;&gt</a>
 </nav>
 {% endblock top_nav %}
 
@@ -52,7 +52,31 @@
         <div class="comments-header-item-right">  <a href="#new-comment" id="add-comment-link">++Add New Comment++</a> </div>
     </div>
     <ul>
-    {% for x in "12345" %}
+    {% for comment in post.post_comments.all %}
+    <li class="comment-container">
+        <div class="comment-info {% cycle '' '' '' '' 'author' %}">
+            {% if comment.author == None %}
+            <span class="unregistered">(unregistered user)</span>
+            {% endif %}
+            <span class="comment-username {% cycle 'user' 'user' 'anon' 'user' 'author' %}">{{ comment.display_author }}</span>
+            <span class="comment-date">{{ comment.timestamp | date:"n/j/y" }}</span>
+            <span class="comment-time">{{ comment.timestamp | date:"h:i A" }}</span>
+            {% if comment.is_editied %}
+            <span class="edited">(Edited)</span>
+            {% endif %}
+        </div>
+        <div class="comment-background skewed {% cycle '' '' '' '' 'author' %}">
+        </div>
+        <div class="comment-content">
+            <p>{{ comment.content }}</p>
+        </div>
+        <div class="comment-controls-background skewed"></div>
+        <div class="comment-controls">
+            <div class="heart comment-heart"><i class="fal fa-heart"><span>999</span></i></div>
+        </div>
+    </li>
+    {% endfor %}
+    {% comment %} {% for x in "12345" %}
     <li class="comment-container">
         <div class="comment-info {% cycle '' '' '' '' 'author' %}">
             {% if forloop.counter == 3 %}
@@ -75,7 +99,7 @@
             <div class="heart comment-heart"><i class="fal fa-heart"><span>999</span></i></div>
         </div>
     </li>
-    {% endfor %}
+    {% endfor %} {% endcomment %}
     </ul>
 </div>
 
@@ -83,13 +107,19 @@
     <a name="new-comment"></a>
     <h2 id="comment-header">New Comment</h2>
     <div id="form-container">
-        <form action="" id="comment-form">
+        <form method="POST" id="comment-form">
+            {% csrf_token %}
             <div id="input-container">
                 <span>[Name]</span>
-                <input type="text" id="name-input">
+                {% if user.is_authenticated %}
+                    <span>{{ user.username }}</span>
+                    <input type="hidden" name="display_author" value="{{ user.username }}">
+                {% else %}
+                <input type="text" id="name-input" name='display_author'>
+                {% endif %}
                 <span>[Name]</span>
             </div>
-            <textarea name="" id="comment-input" cols="30" rows="10"></textarea>
+            <textarea name="content" id="comment-input" cols="30" rows="10"></textarea>
             <input type="submit" value="++ Post ++" id="comment-submit">
         </form>
         <div id="middle-stripe"></div>

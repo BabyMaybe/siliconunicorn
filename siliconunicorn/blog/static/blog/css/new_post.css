@@ -331,6 +331,11 @@ p {
           align-items: flex-start;
 }
 
+.blog-tags-container a {
+  padding: 0;
+  margin: 0;
+}
+
 .blog-tag {
   padding: .5em;
   margin: .25em;

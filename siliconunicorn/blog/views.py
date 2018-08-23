@@ -8,8 +8,8 @@ from django.template import loader
 
 from django.utils.text import slugify
 
-from .forms import UnicornUserCreationForm, NewPostForm
-from .models import Post, UnicornUser, Tag
+from .forms import UnicornUserCreationForm, NewPostForm, CommentForm
+from .models import Post, UnicornUser, Tag, Comment
 # Create your views here.
 import datetime
 
@@ -89,6 +89,13 @@ class MostRecentEntriesList(ListView):
     template_name = 'blog/home.html'
     paginate_by = 5
 
+    def get_queryset(self):
+        queryset = self.model.objects.all()
+        tags = self.request.GET.get('tags')
+        if tags:
+            queryset = queryset.filter(tags__name = tags)
+        return queryset
+
     # def get_context_data(self, **kwargs):
     #     print('getting context data')
     #     context = super().get_context_data(**kwargs)
@@ -101,3 +108,40 @@ class PostDetail(DetailView):
     model = Post
     template_name='blog/post.html'
     context_object_name = 'post'
+    form_class = CommentForm
+    initial = {'comment':'Enter comment here', 'display_author':'nobody'}
+
+    def post(self, request, *args, **kwargs):
+        print('posting')
+        # print(request.POST)
+        f = CommentForm(request.POST)
+        if (f.is_valid()):
+
+            if (request.user.is_anonymous):
+                author = None
+            else:
+                author = UnicornUser.objects.get(username=self.request.user)
+            
+            display_author = f.cleaned_data['display_author']
+            content = f.cleaned_data['content']
+            post = self.get_object()
+
+            c = Comment(author=author, display_author=display_author, content=content, parent_post=post)
+            c.save()
+
+            return HttpResponseRedirect(request.path)
+
+
+        self.object = self.get_object()
+        context = self.get_context_data(object=self.object)
+        return self.render_to_response(context)
+    
+    def form_valid(self, form):
+        print('************************doest this even get called?*****************************')
+
+    def get_context_data(self, **kwargs):
+        context = super(PostDetail, self).get_context_data(**kwargs)
+
+        # context['comments'] = self.get_object().post_comments.all().filter(active=True).order_by('timestamp')
+        context['form'] = self.form_class(initial=self.initial)
+        return context

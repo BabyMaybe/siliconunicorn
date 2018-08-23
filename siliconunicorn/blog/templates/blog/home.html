@@ -38,14 +38,8 @@
     <div class="blog-tags-container">
         <h3>Tags</h3>
         <ul>
-        {% comment %} {% for x in '12345' %}
-            <li class="blog-tag">
-                #{% lorem 1 w random%}
-            </li>
-        {% endfor %} {% endcomment %}
-
         {% for tag in post.tags.all %}
-            <li class="blog-tag">{{ tag.name }}</li>
+            <li class="blog-tag"><a href="?tags={{ tag.name }}">{{ tag.name }}</a></li>
         {% endfor %}
         </ul>
     </div>

@@ -220,17 +220,23 @@ p {
         display: flex;
         flex-direction: column;
         align-items: flex-start;
+        a {
+            padding: .5em;
+            margin: 0;
+        }
     }
+
 }
 
 .blog-tag{
-    padding: .5em;
+    // padding: .5em;
     margin: .25em;
     text-align: center;
     border: solid $grey 1px;
     font-size: .75em;
     cursor: pointer;
     transition: .25s;
+    display: flex;
 
     &:last-child {
         margin-bottom: 1em;

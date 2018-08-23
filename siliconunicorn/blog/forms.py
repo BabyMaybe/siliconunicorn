@@ -44,8 +44,8 @@ class CommentForm(ModelForm):
         fields = ['display_author', 'content', ]
 
         widgets = {
-        'content' : forms.Textarea(attrs = {'id' : 'new-comment',
+        'content' : forms.Textarea(attrs = {'id' : 'comment-input',
                                             'placeholder': 'Enter comment here...'}),
-        'display_author' : forms.TextInput(attrs = {'id' : 'new-comment-author',
+        'display_author' : forms.TextInput(attrs = {'id' : 'name-input',
                                                     'value' : 'LonelyUnicorn'}),
         }
