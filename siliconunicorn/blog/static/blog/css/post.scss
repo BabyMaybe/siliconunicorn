@@ -209,7 +209,7 @@ body {
 .comment-username {
     color: $post-color;
     font-size: 1.5em;
-    text-transform: capitalize;
+    // text-transform: capitalize;
 }
 
 .comment-date {
@@ -229,7 +229,16 @@ body {
     grid-area: info;
     border-right: solid $post-color 4px;
     position: relative;
-    left: -80px;
+    left: -8px;
+}
+
+.comment-background.author:before {
+    content: '';
+    background: $post-color;
+    width: 50px;
+    height: 100%;
+    position: absolute;
+    left: -45px;
 }
 
 .comment-content {
@@ -423,7 +432,6 @@ body {
 }
 
 .author {
-    // background-color: $post-color;
     color: $black;
 }
 

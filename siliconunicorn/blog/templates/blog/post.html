@@ -54,18 +54,25 @@
     <ul>
     {% for comment in post.post_comments.all %}
     <li class="comment-container">
-        <div class="comment-info {% cycle '' '' '' '' 'author' %}">
+        <div class="comment-info {% if comment.author == post.author %} author {% endif %}">
             {% if comment.author == None %}
             <span class="unregistered">(unregistered user)</span>
+            <span class="comment-username anon">{{ comment.display_author }}</span>
+            {% elif comment.author == post.author %}
+            <span class="comment-username author">{{ comment.display_author }}</span>
+            {% else %}
+            <span class="comment-username user">{{ comment.display_author }}</span>
             {% endif %}
-            <span class="comment-username {% cycle 'user' 'user' 'anon' 'user' 'author' %}">{{ comment.display_author }}</span>
             <span class="comment-date">{{ comment.timestamp | date:"n/j/y" }}</span>
             <span class="comment-time">{{ comment.timestamp | date:"h:i A" }}</span>
-            {% if comment.is_editied %}
+            {% if comment.is_edited %}
             <span class="edited">(Edited)</span>
             {% endif %}
         </div>
-        <div class="comment-background skewed {% cycle '' '' '' '' 'author' %}">
+        
+
+        
+        <div class="comment-background skewed {% if comment.author == post.author %}author{% endif %}">
         </div>
         <div class="comment-content">
             <p>{{ comment.content }}</p>

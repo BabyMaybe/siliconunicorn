@@ -84,6 +84,12 @@ p {
   margin: 0;
 }
 
+#hero #hero_logo {
+  width: 80%;
+  max-height: 500px;
+  fill: #2d2d2d;
+}
+
 #accounts {
   display: -webkit-box;
   display: -ms-flexbox;

@@ -46,6 +46,12 @@ p {
         text-align: center;
         margin: 0;
     }
+
+    #hero_logo {
+        width: 80%;
+        max-height: 500px;
+        fill: $black;
+    }
 }
 
 #accounts {
