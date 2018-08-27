@@ -1,51 +1,33 @@
-{% extends "blog/base.html" %}
-{% load static %}
+{% extends "blog/base.html" %} {% load static %} {% block title %} Login {% endblock title %} {% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'blog/css/login.css' %}" /> {% endblock css %} {% block accounts %}{% endblock accounts %} {% block hero %}
+<h1> Login </h1>
+<div id="header-sitename">
+    <h2>SiliconUnicorn.com</h2>
+</div>
+{% endblock hero %} {% block top_nav %}
+<nav id="nav-blog" class="nav">
+    <a href="{% url 'home' %}" class="nav-item">
+        <> Back to Main Site
+            <>
+    </a>
+</nav>
+{% endblock top_nav %} {% block main %}
 
-
-{% block title %} Login {% endblock title %}
-
-
-{% block css %}
-<link rel="stylesheet" type="text/css" href="{% static 'blog/css/login.css' %}" />
-{% endblock css %}
-
-
-{% block accounts %}{% endblock accounts %}
-
-
-{% block hero %}
-    <h1> Login </h1>
-    <div id="header-sitename">
-        <h2>SiliconUnicorn.com</h2>
-    </div>
-{% endblock hero %}
-
-
-{% block top_nav %}
-    <nav id="nav-blog" class="nav">
-        <a href="{% url 'home' %}" class="nav-item"><> Back to Main Site <></a>
-    </nav>
-{% endblock top_nav %}
-
-
-{% block main %}
-
-<form method="POST" id="login-form" >
+<form method="POST" id="login-form">
     {% csrf_token %}
     <div class="form-element">
         <label for="id_username" class="form-label">:Enter Username:</label>
         <input type="text" name="username" id="id_username" class="form-input">
     </div>
-        
+
     <div class="form-element">
         <label for="id_password" class="form-label">:Enter Password:</label>
         <input type="password" name="password" id="id_password" class="form-input">
     </div>
     {% if form.errors %}
-        <p class=" label label-danger">
-            Your username and password didn't match. 
-            Please try again.
-        </p>
+    <p class=" label label-danger">
+        Your username and password didn't match. Please try again.
+    </p>
     {% endif %}
     <div class="form-element">
         <input type="submit" value="Login" class="form-btn">

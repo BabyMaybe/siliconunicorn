@@ -43,7 +43,7 @@
 body {
   display: -ms-grid;
   display: grid;
-      grid-template-areas: "header"  "nav-blog"  "main"  "nav-page"  "footer";
+      grid-template-areas: "header" "nav-blog" "main" "nav-page" "footer";
   min-height: 100vh;
   -ms-grid-rows: auto auto 1fr auto auto;
       grid-template-rows: auto auto 1fr auto auto;
@@ -102,7 +102,7 @@ p {
 }
 
 #accounts a {
-  padding: .5em;
+  padding: 0.5em;
   border: solid transparent 5px;
   border-top: none;
   margin: 0 5px;
@@ -144,8 +144,8 @@ p {
   border: solid transparent 3px;
   border-top: none;
   border-bottom: none;
-  -webkit-transition: .2s;
-  transition: .2s;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
 }
 
 .nav-item:first-child {
@@ -166,7 +166,7 @@ p {
 }
 
 .nav-disabled {
-  opacity: .5;
+  opacity: 0.5;
   pointer-events: none;
 }
 
@@ -210,7 +210,7 @@ p {
   color: #89f0c8;
   font-size: 4em;
   margin-top: 1em;
-  margin-bottom: .5em;
+  margin-bottom: 0.5em;
   max-width: 60rem;
 }
 
@@ -268,7 +268,7 @@ p {
 }
 
 .blog-time {
-  font-size: .75em;
+  font-size: 0.75em;
 }
 
 .blog-date-box {
@@ -312,7 +312,7 @@ p {
   width: 150px;
   border-left: solid #d9d9d9 1px;
   margin-left: 2em;
-  padding-left: .25em;
+  padding-left: 0.25em;
 }
 
 .blog-tags-container h3 {
@@ -337,18 +337,18 @@ p {
 }
 
 .blog-tags-container ul a {
-  padding: .5em;
+  padding: 0.5em;
   margin: 0;
 }
 
 .blog-tag {
-  margin: .25em;
+  margin: 0.25em;
   text-align: center;
   border: solid #d9d9d9 1px;
-  font-size: .75em;
+  font-size: 0.75em;
   cursor: pointer;
-  -webkit-transition: .25s;
-  transition: .25s;
+  -webkit-transition: 0.25s;
+  transition: 0.25s;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -359,10 +359,11 @@ p {
 }
 
 .blog-tag:hover {
+  border-color: #89f0c8;
   background-color: #89f0c8;
   color: #2d2d2d;
-  -webkit-transition: .1s;
-  transition: .1s;
+  -webkit-transition: 0.1s;
+  transition: 0.1s;
 }
 
 .blog-tag:active {
@@ -397,8 +398,8 @@ p {
 }
 
 .heart i {
-  -webkit-transition: .2s;
-  transition: .2s;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -416,7 +417,7 @@ p {
   position: absolute;
   color: #2d2d2d;
   font-family: "Arvo", serif;
-  font-size: .25em;
+  font-size: 0.25em;
 }
 
 .heart .fa-heart:before {
@@ -509,7 +510,7 @@ ul {
 button {
   color: #89f0c8;
   width: 250px;
-  padding: .75em;
+  padding: 0.75em;
   border: solid #89f0c8 3px;
   cursor: pointer;
   font-family: "Arvo", serif;

@@ -1,440 +1,496 @@
-@import 'style';
+@import "style";
 
 $post-color: $blue;
 $post-highlight: lighten($post-color, 15%);
 
 body {
-    grid-template-areas: "header"
-                         "nav-page"
-                         "main"
-                         "post-info"
-                         "comments"
-                         "new-comment"
-                         "footer";
-    grid-template-rows: auto 59px auto 115px auto auto 166px;
-    grid-template-columns: 100%;
+  grid-template-areas:
+    "header"
+    "nav-page"
+    "main"
+    "post-info"
+    "comments"
+    "new-comment"
+    "footer";
+  grid-template-rows: auto 59px auto 115px auto auto 166px;
+  grid-template-columns: 100%;
 }
 
-
 #hero {
-    background-color: $post-color;
-    text-transform: capitalize;
-    h1{font-size: 10vw;}
+  background-color: $post-color;
+  text-transform: capitalize;
+  h1 {
+    font-size: 10vw;
+  }
 }
 
 #nav-page {
-    border: none;
-    border-top: solid $black 10px;
+  border: none;
+  border-top: solid $black 10px;
 }
 
 .nav {
-    font-size: 1.5em;
+  font-size: 1.5em;
 }
 
 .nav-item {
-    padding: 11px;
+  padding: 11px;
 }
 
 .nav-item:hover {
-    background-color: $post-highlight;
+  background-color: $post-highlight;
 }
 
 #main {
-    border-top: solid $post-color 6px;
+  border-top: solid $post-color 6px;
+  flex-direction: row;
+  align-items: stretch;
 }
 
 #post-content {
-    border-right: solid $post-color 3px;
-    border-left: solid rgba($lightgrey, .15) 3px;
-    max-width: 40em;
-    margin: 0 auto;
-    font-family: $body-font;
-    padding: 3em;
-    line-height: 1.75;
-    font-size: 1.15em;
+  border-right: solid $post-color 3px;
+  border-left: solid rgba($lightgrey, 0.15) 3px;
+  max-width: 40em;
+  margin: 0 auto;
+  font-family: $body-font;
+  padding: 3em;
+  line-height: 1.75;
+  font-size: 1.15em;
+  flex: 1 1 40em;
 
-    p:first-child {
-        margin-top: 0;
-        padding-top: 0;
-    }
+  p:first-child {
+    margin-top: 0;
+    padding-top: 0;
+  }
+}
+
+.spacer {
+  flex: 1;
+}
+
+.blog-tags-container {
+  border: none;
+  margin: 0;
+  padding: 0;
+
+  ul {
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 1em;
+  }
+}
+
+#tags-list {
+  flex: 1;
+  font-family: $arvo;
+}
+
+#post-tag-header {
+  text-align: center;
+  margin: 0;
+  margin-top: 0.5em;
+  padding-bottom: 0.5em;
+  width: 100%;
+  border-bottom: solid $post-color 1px;
+}
+
+.tag {
+  margin: 0.25em;
+  text-align: center;
+  border: solid #d9d9d9 1px;
+  cursor: pointer;
+  -webkit-transition: 0.25s;
+  transition: 0.25s;
+  display: flex;
+  justify-content: center;
+  // flex: 1;
+  padding: 0.4em;
+  font-size: 0.75em;
+}
+
+.tag:hover {
+  background-color: $post-color;
+  color: $black;
+  border-color: $post-color;
 }
 
 #post-info {
-    grid-area: post-info;
-    background-color: $post-color;
-    display: flex;
-    align-items: center;
-    font-size: 1rem;
-    border-bottom: solid $black 22px;
-    font-family: $arvo;
+  grid-area: post-info;
+  background-color: $post-color;
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  border-bottom: solid $black 22px;
+  font-family: $arvo;
 }
 
 #post-author {
-    justify-self: flex-start;
-    font-size: 2.25em;
-    margin-left: 1.5rem;
+  justify-self: flex-start;
+  font-size: 2.25em;
+  margin-left: 1.5rem;
 }
 
 #date-container {
-    display:flex;
-    justify-content: flex-end;
-    flex: 1;
-    align-items: baseline;
+  display: flex;
+  justify-content: flex-end;
+  flex: 1;
+  align-items: baseline;
 }
 
 #post-date {
-    font-size: 2em;
-    margin-right: .5em;
+  font-size: 2em;
+  margin-right: 0.5em;
 }
 
 #post-time {
-    font-size: 1.25em;
+  font-size: 1.25em;
 }
 
 .heart {
-    i {
-        font-size: 1em;
-        color: $black;
-        span {
-            color: $black;
-            font-weight: 700;
-        }
+  i {
+    font-size: 1em;
+    color: $black;
+    span {
+      color: $black;
+      font-weight: 700;
     }
+  }
 }
 
 .heart:hover {
-    i {
-        color: $black;
-        span {
-            color: $post-color;
-        }
+  i {
+    // color: $red;
+    span {
+      color: $red;
     }
+  }
 }
 
 .heart:active {
-    i {
-        color: lighten($black, 10%);
+  i {
+    color: lighten($red, 10%);
+    span {
+      color: lighten($red, 10%);
     }
+  }
 }
 
-
 #post-hearts {
-    font-size: 4em;
-    margin: 0 .5em;
+  font-size: 4em;
+  margin: 0 0.5em;
 }
 
 #post-hearts:hover {
-    font-size: 4.5em;
-    margin: 0 28px;
+  font-size: 4.5em;
+  margin: 0 28px;
 }
 
 #comments {
-    background-color: $black;
+  background-color: $black;
 }
 
 #comments-header {
-    height: 65px;
-    display:flex;
-    align-items: center;
-    justify-content: space-between;
-    border: solid $grey 3px;
-    border-left: none;
-    border-right: none;
-    font-family: $arvo;
+  height: 65px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: solid $grey 3px;
+  border-left: none;
+  border-right: none;
+  font-family: $arvo;
 }
 
 .comments-header-item-left {
-    display: flex;
-    align-items: center;
-    text-align: center;
-    height: 100%;
-    background-color: $grey;
-    font-size: 1.5em;
-    padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  height: 100%;
+  background-color: $grey;
+  font-size: 1.5em;
+  padding: 0 1.5rem;
 }
 
 // #comment-count {
 // }
 
 .comments-header-item-right {
-    display: flex;
-    align-items: center;
-    text-align: center;
-    height: 100%;
-    font-size: 1.5em;
-    padding: 0 1.5rem;
-    border-left: solid $grey 4px;
-    cursor: pointer;
-    transition: .2s;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  height: 100%;
+  font-size: 1.5em;
+  padding: 0 1.5rem;
+  border-left: solid $grey 4px;
+  cursor: pointer;
+  transition: 0.2s;
 
-    #add-comment-link {
-        color: $grey;
-        transition: .2s;
-    }
+  #add-comment-link {
+    color: $grey;
+    transition: 0.2s;
+  }
 }
 
 .comments-header-item-right:hover {
-    background-color: $grey;
+  background-color: $grey;
 
-    #add-comment-link {
-        color: $black;
-    }
+  #add-comment-link {
+    color: $black;
+  }
 }
 
 .comment-container {
-    border-bottom: solid $post-color 3px;
-    display: grid;
-    grid-template-areas: "info comment controls";
-    grid-template-columns: auto 5fr 1fr;
-    overflow: hidden;
+  border-bottom: solid $post-color 3px;
+  display: grid;
+  grid-template-areas: "info comment controls";
+  grid-template-columns: auto 5fr 1fr;
+  overflow: hidden;
 }
 
 .comment-container:last-child {
-    border-bottom: none;
+  border-bottom: none;
 }
 
 .comment-info {
-    color: $grey;
-    padding: 1em;
-    min-width: 214px;
-    z-index: 1;
-    grid-area: info;
-    font-family: $arvo;
+  color: $grey;
+  padding: 1em;
+  min-width: 214px;
+  z-index: 1;
+  grid-area: info;
+  font-family: $arvo;
 
-    span {
-        display: block;
-    }
+  span {
+    display: block;
+  }
 }
 
 .comment-username {
-    color: $post-color;
-    font-size: 1.5em;
-    // text-transform: capitalize;
+  color: $post-color;
+  font-size: 1.5em;
+  // text-transform: capitalize;
 }
 
 .comment-date {
-    font-size: 1.5em;
-    padding-top: .25em;
+  font-size: 1.5em;
+  padding-top: 0.25em;
 }
 
 .comment-time {
-    padding-top: .1em;
+  padding-top: 0.1em;
 }
 
 .skewed {
-    transform: skewX(-30deg);
+  transform: skewX(-30deg);
 }
 
 .comment-background {
-    grid-area: info;
-    border-right: solid $post-color 4px;
-    position: relative;
-    left: -8px;
+  grid-area: info;
+  border-right: solid $post-color 4px;
+  position: relative;
+  left: -8px;
 }
 
 .comment-background.author:before {
-    content: '';
-    background: $post-color;
-    width: 50px;
-    height: 100%;
-    position: absolute;
-    left: -45px;
+  content: "";
+  background: $post-color;
+  width: 50px;
+  height: 100%;
+  position: absolute;
+  left: -45px;
 }
 
 .comment-content {
-    grid-area: comment;
-    padding: 0 10em;
-    // padding-left: 12em;
-    color: $bluetext;
-    line-height: 1.5;
-    font-size: 1em;
-    grid-column: 1/4;
-    grid-row: 1;
-    margin: 0 auto;
-    p {
-        margin: 1em;
-        width: 40em;
-    }
+  grid-area: comment;
+  padding: 0 10em;
+  // padding-left: 12em;
+  color: $bluetext;
+  line-height: 1.5;
+  font-size: 1em;
+  grid-column: 1/4;
+  grid-row: 1;
+  margin: 0 auto;
+  p {
+    margin: 1em;
+    width: 40em;
+  }
 }
 
 .comment-controls-background {
-    background-color: $post-color;
-    border-top: solid $black 6px;
-    transform: skewX(-30deg) scaleX(200);
-    transform-origin: left;
-    grid-area: controls;
-    z-index: 0;
+  background-color: $post-color;
+  border-top: solid $black 6px;
+  transform: skewX(-30deg) scaleX(200);
+  transform-origin: left;
+  grid-area: controls;
+  z-index: 0;
 }
 
 .comment-controls {
-    grid-area: controls;
-    z-index: 1;
+  grid-area: controls;
+  z-index: 1;
 }
 
 .comment-heart {
-    grid-area: controls;
-    z-index: 1;
-    font-size: 3em;
-    height: 100%;
-    display: flex;
-    align-items: flex-end;
-    padding-right: .5em;
+  grid-area: controls;
+  z-index: 1;
+  font-size: 3em;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+  padding-right: 0.5em;
 
-    i {
-        transition: .2s;
-        padding: 10px;
-    }
+  i {
+    transition: 0.2s;
+    padding: 10px;
+  }
 }
 
-.comment-heart>i:hover {
-    font-size: 1.1em;
+.comment-heart > i:hover {
+  font-size: 1.1em;
 }
-
-
-
 
 #new-comment-area {
-    background-color: $black;
-    border-top: solid $grey 6px;
-    margin-bottom: 50px;
-    font-family: $arvo;
+  background-color: $black;
+  border-top: solid $grey 6px;
+  margin-bottom: 50px;
+  font-family: $arvo;
 }
 
 #form-container {
-    display: grid;
-    grid-template-rows: 1fr 1.5fr 1fr;
-    grid-template-columns: 100%;
-    grid-template-areas: "top"
-                         "mid"
-                         "bot";
+  display: grid;
+  grid-template-rows: 1fr 1.5fr 1fr;
+  grid-template-columns: 100%;
+  grid-template-areas:
+    "top"
+    "mid"
+    "bot";
 }
 
 #comment-header {
-    text-align: center;
-    color: $grey;
-    font-size: 2em;
-    grid-area: top;
+  text-align: center;
+  color: $grey;
+  font-size: 2em;
+  grid-area: top;
 }
 
 #middle-stripe {
-    background-color: $post-color;
-    grid-area: mid;
-    z-index: 0;
-    border: solid rgba(255,255,255, .8) 4px;
-    border-left: none;
-    border-right: none;
+  background-color: $post-color;
+  grid-area: mid;
+  z-index: 0;
+  border: solid rgba(255, 255, 255, 0.8) 4px;
+  border-left: none;
+  border-right: none;
 }
 
 #comment-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    grid-row: 1/4;
-    grid-column: 1;
-    z-index: 1;
-
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  grid-row: 1/4;
+  grid-column: 1;
+  z-index: 1;
 }
 
 #input-container {
-    color: $post-color;
+  color: $post-color;
 
-    span {
-        margin: .5em;
-        font-size: 1.5em;
-    }
+  span {
+    margin: 0.5em;
+    font-size: 1.5em;
+  }
 }
 
 #name-input {
-    padding: .5em;
-    outline: none;
+  padding: 0.5em;
+  outline: none;
 }
 
 #comment-input {
-    margin: 1em;
-    width: 40em;
-    resize: vertical;
-    border: solid $black 5px;
-    padding: 1em;
-    min-height: 225px;
-    outline: none;
+  margin: 1em;
+  width: 40em;
+  resize: vertical;
+  border: solid $black 5px;
+  padding: 1em;
+  min-height: 225px;
+  outline: none;
 }
 
 #comment-submit {
-    padding: .75em 7em;
-    background-color: $black;
-    color: $post-color;
-    border: solid $post-color 4px;
-    text-align: center;
-    cursor: pointer;
-    transition: .5s;
+  padding: 0.75em 7em;
+  background-color: $black;
+  color: $post-color;
+  border: solid $post-color 4px;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.5s;
 
-    &:hover {
-        background: $post-color;
-        color: $black;
-        letter-spacing: 2px;
-        transition: .25s;
-    }
+  &:hover {
+    background: $post-color;
+    color: $black;
+    letter-spacing: 2px;
+    transition: 0.25s;
+  }
 }
 
 #footer {
-    overflow: hidden;
-    display: grid;
-    grid-template-rows: 1fr 1fr;
-    padding: 0;
-    border-top: solid $grey 6px;
-    background-color: $black;
+  overflow: hidden;
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  padding: 0;
+  border-top: solid $grey 6px;
+  background-color: $black;
 }
 
 #footer-lines {
-    background: repeating-linear-gradient(-70deg,
-                                          $grey,
-                                          $grey 4px,
-                                          transparent 4px,
-                                          transparent 100px
-    );
-    background-color: $black;
-    height: 500%;
+  background: repeating-linear-gradient(
+    -70deg,
+    $grey,
+    $grey 4px,
+    transparent 4px,
+    transparent 100px
+  );
+  background-color: $black;
+  height: 500%;
 }
 
 #footer-color {
-    background-color: $grey;
-    height: 300%;
-    grid-row: 2;
-    grid-column: 1;
-    transform: rotateZ(-4deg);
-    width: 105%;
-    position: relative;
-    top: 40%;
+  background-color: $grey;
+  height: 300%;
+  grid-row: 2;
+  grid-column: 1;
+  transform: rotateZ(-4deg);
+  width: 105%;
+  position: relative;
+  top: 40%;
 }
 
 #footer-content {
-    grid-row: 2;
-    grid-column: 1;
-    z-index: 3;
-    display: flex;
-    align-items: baseline;
-    padding-left: 1.5em;
+  grid-row: 2;
+  grid-column: 1;
+  z-index: 3;
+  display: flex;
+  align-items: baseline;
+  padding-left: 1.5em;
 }
 
 #copyright {
-    padding-top: 3em;
-    padding-bottom: 1em;
-    font-family: $arvo;
+  padding-top: 3em;
+  padding-bottom: 1em;
+  font-family: $arvo;
 }
 
 .anon {
-    opacity: .5;
+  opacity: 0.5;
 }
 
 .unregistered {
-    opacity: .5;
-    color: $grey;
+  opacity: 0.5;
+  color: $grey;
 }
 
 .author {
-    color: $black;
+  color: $black;
 }
 
 .skewed.author {
-    background-color: $post-color;
+  background-color: $post-color;
 }

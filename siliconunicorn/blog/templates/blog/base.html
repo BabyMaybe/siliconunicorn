@@ -8,10 +8,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title> {% block title %} SiliconUnicorn {% endblock title %} </title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="{% static 'blog/css/normalize.css' %}">
-    {% block css %}
-    <link rel="stylesheet" type="text/css" href="{% static 'blog/css/style.css' %}" />
-    {% endblock css %}
+    <link rel="stylesheet" href="{% static 'blog/css/normalize.css' %}"> {% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/css/style.css' %}" /> {% endblock css %}
     <link href="https://fonts.googleapis.com/css?family=Arvo|Josefin+Sans|Istok+Web:400,400i,700" rel="stylesheet">
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-TXfwrfuHVznxCssTxWoPZjhcss/hp38gEOH8UPZG/JcXonvBQ6SlsIF49wUzsGno" crossorigin="anonymous">
 </head>
@@ -20,15 +18,14 @@
     <header id="hero">
         {% block accounts %}
         <div id="accounts">
-        {% if user.is_authenticated %}
+            {% if user.is_authenticated %}
             <a href="{% url 'logout' %}">- Logout {{ user.username }} -</a>
-        {% else %}
+            {% else %}
             <a href="{% url 'signup' %}">+ Signup +</a>
             <a href="{% url 'login' %}">. Login .</a>
             {% endif %}
         </div>
-        {% endblock accounts %}
-        {% block hero %}
+        {% endblock accounts %} {% block hero %}
         <h1>
             <div>: : Silicon : :</div>
             <div>\\ Unicorn \\</div>
@@ -41,33 +38,37 @@
         <a href="?tags=dev" class="nav-item">Dev</a>
         <a href="?tags=life" class="nav-item">Life</a>
     </nav>
-    {% endblock top_nav %}
-
-    {% block pre_main %}{% endblock pre_main %}
+    {% endblock top_nav %} {% block pre_main %}{% endblock pre_main %}
 
     <main id="main">
-    {% block main %}{% endblock main %}
+        {% block main %}{% endblock main %}
     </main>
 
-    {% block post_main %}{% endblock post_main %}
-
-    {% block bot_nav %}{% endblock bot_nav %}
-
-    {% block footer %}
+    {% block post_main %}{% endblock post_main %} {% block bot_nav %}{% endblock bot_nav %} {% block footer %}
     <footer id="footer">
         <span id="copyright">© Eric Varela</span>
         <div id="social">
-            <a class="social-icon" target="_blank" rel="noopener" href="https://www.facebook.com/eric.varela"><i class="fab fa-facebook"></i></a>
-            <a class="social-icon" target="_blank" rel="noopener" href="https://github.com/BabyMaybe"><i class="fab fa-github-square"></i></a>
-            <a class="social-icon" target="_blank" rel="noopener" href="https://www.linkedin.com/in/eric-varela-a2747949/"><i class="fab fa-linkedin"></i></a>
-            <a class="social-icon" target="_blank" rel="noopener" href="https://www.instagram.com/siliconunicorn/"><i class="fab fa-instagram"></i></a>
-            <a class="social-icon" target="_blank" rel="noopener" href="https://www.reddit.com/user/SiliconUnicorn"><i class="fab fa-reddit-square"></i></a>
-            <a class="social-icon" target="_blank" rel="noopener" href="https://vimeo.com/user2828325"><i class="fab fa-vimeo"></i></a>
+            <a class="social-icon" target="_blank" rel="noopener" href="https://www.facebook.com/eric.varela">
+                <i class="fab fa-facebook"></i>
+            </a>
+            <a class="social-icon" target="_blank" rel="noopener" href="https://github.com/BabyMaybe">
+                <i class="fab fa-github-square"></i>
+            </a>
+            <a class="social-icon" target="_blank" rel="noopener" href="https://www.linkedin.com/in/eric-varela-a2747949/">
+                <i class="fab fa-linkedin"></i>
+            </a>
+            <a class="social-icon" target="_blank" rel="noopener" href="https://www.instagram.com/siliconunicorn/">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a class="social-icon" target="_blank" rel="noopener" href="https://www.reddit.com/user/SiliconUnicorn">
+                <i class="fab fa-reddit-square"></i>
+            </a>
+            <a class="social-icon" target="_blank" rel="noopener" href="https://vimeo.com/user2828325">
+                <i class="fab fa-vimeo"></i>
+            </a>
         </div>
     </footer>
-    {% endblock footer %}
-
-    {% block scripts %}{% endblock scripts %}
+    {% endblock footer %} {% block scripts %}{% endblock scripts %}
 </body>
 
 </html>

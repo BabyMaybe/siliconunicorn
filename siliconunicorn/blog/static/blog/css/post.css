@@ -43,7 +43,7 @@
 body {
   display: -ms-grid;
   display: grid;
-      grid-template-areas: "header"  "nav-blog"  "main"  "nav-page"  "footer";
+      grid-template-areas: "header" "nav-blog" "main" "nav-page" "footer";
   min-height: 100vh;
   -ms-grid-rows: auto auto 1fr auto auto;
       grid-template-rows: auto auto 1fr auto auto;
@@ -102,7 +102,7 @@ p {
 }
 
 #accounts a {
-  padding: .5em;
+  padding: 0.5em;
   border: solid transparent 5px;
   border-top: none;
   margin: 0 5px;
@@ -144,8 +144,8 @@ p {
   border: solid transparent 3px;
   border-top: none;
   border-bottom: none;
-  -webkit-transition: .2s;
-  transition: .2s;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
 }
 
 .nav-item:first-child {
@@ -166,7 +166,7 @@ p {
 }
 
 .nav-disabled {
-  opacity: .5;
+  opacity: 0.5;
   pointer-events: none;
 }
 
@@ -210,7 +210,7 @@ p {
   color: #89f0c8;
   font-size: 4em;
   margin-top: 1em;
-  margin-bottom: .5em;
+  margin-bottom: 0.5em;
   max-width: 60rem;
 }
 
@@ -268,7 +268,7 @@ p {
 }
 
 .blog-time {
-  font-size: .75em;
+  font-size: 0.75em;
 }
 
 .blog-date-box {
@@ -312,7 +312,7 @@ p {
   width: 150px;
   border-left: solid #d9d9d9 1px;
   margin-left: 2em;
-  padding-left: .25em;
+  padding-left: 0.25em;
 }
 
 .blog-tags-container h3 {
@@ -337,18 +337,18 @@ p {
 }
 
 .blog-tags-container ul a {
-  padding: .5em;
+  padding: 0.5em;
   margin: 0;
 }
 
 .blog-tag {
-  margin: .25em;
+  margin: 0.25em;
   text-align: center;
   border: solid #d9d9d9 1px;
-  font-size: .75em;
+  font-size: 0.75em;
   cursor: pointer;
-  -webkit-transition: .25s;
-  transition: .25s;
+  -webkit-transition: 0.25s;
+  transition: 0.25s;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -359,10 +359,11 @@ p {
 }
 
 .blog-tag:hover {
+  border-color: #89f0c8;
   background-color: #89f0c8;
   color: #2d2d2d;
-  -webkit-transition: .1s;
-  transition: .1s;
+  -webkit-transition: 0.1s;
+  transition: 0.1s;
 }
 
 .blog-tag:active {
@@ -397,8 +398,8 @@ p {
 }
 
 .heart i {
-  -webkit-transition: .2s;
-  transition: .2s;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -416,7 +417,7 @@ p {
   position: absolute;
   color: #2d2d2d;
   font-family: "Arvo", serif;
-  font-size: .25em;
+  font-size: 0.25em;
 }
 
 .heart .fa-heart:before {
@@ -509,7 +510,7 @@ ul {
 button {
   color: #89f0c8;
   width: 250px;
-  padding: .75em;
+  padding: 0.75em;
   border: solid #89f0c8 3px;
   cursor: pointer;
   font-family: "Arvo", serif;
@@ -573,6 +574,13 @@ body {
 
 #main {
   border-top: solid #7cedfc 6px;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: stretch;
+      -ms-flex-align: stretch;
+          align-items: stretch;
 }
 
 #post-content {
@@ -584,11 +592,78 @@ body {
   padding: 3em;
   line-height: 1.75;
   font-size: 1.15em;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 40em;
+          flex: 1 1 40em;
 }
 
 #post-content p:first-child {
   margin-top: 0;
   padding-top: 0;
+}
+
+.spacer {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+
+.blog-tags-container {
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+.blog-tags-container ul {
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  padding: 1em;
+}
+
+#tags-list {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  font-family: "Arvo", serif;
+}
+
+#post-tag-header {
+  text-align: center;
+  margin: 0;
+  margin-top: 0.5em;
+  padding-bottom: 0.5em;
+  width: 100%;
+  border-bottom: solid #7cedfc 1px;
+}
+
+.tag {
+  margin: 0.25em;
+  text-align: center;
+  border: solid #d9d9d9 1px;
+  cursor: pointer;
+  -webkit-transition: 0.25s;
+  transition: 0.25s;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding: 0.4em;
+  font-size: 0.75em;
+}
+
+.tag:hover {
+  background-color: #7cedfc;
+  color: #2d2d2d;
+  border-color: #7cedfc;
 }
 
 #post-info {
@@ -630,7 +705,7 @@ body {
 
 #post-date {
   font-size: 2em;
-  margin-right: .5em;
+  margin-right: 0.5em;
 }
 
 #post-time {
@@ -647,21 +722,21 @@ body {
   font-weight: 700;
 }
 
-.heart:hover i {
-  color: #2d2d2d;
-}
-
 .heart:hover i span {
-  color: #7cedfc;
+  color: #ff455e;
 }
 
 .heart:active i {
-  color: #474747;
+  color: #ff788a;
+}
+
+.heart:active i span {
+  color: #ff788a;
 }
 
 #post-hearts {
   font-size: 4em;
-  margin: 0 .5em;
+  margin: 0 0.5em;
 }
 
 #post-hearts:hover {
@@ -717,14 +792,14 @@ body {
   padding: 0 1.5rem;
   border-left: solid #d9d9d9 4px;
   cursor: pointer;
-  -webkit-transition: .2s;
-  transition: .2s;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
 }
 
 .comments-header-item-right #add-comment-link {
   color: #d9d9d9;
-  -webkit-transition: .2s;
-  transition: .2s;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
 }
 
 .comments-header-item-right:hover {
@@ -771,11 +846,11 @@ body {
 
 .comment-date {
   font-size: 1.5em;
-  padding-top: .25em;
+  padding-top: 0.25em;
 }
 
 .comment-time {
-  padding-top: .1em;
+  padding-top: 0.1em;
 }
 
 .skewed {
@@ -793,7 +868,7 @@ body {
 }
 
 .comment-background.author:before {
-  content: '';
+  content: "";
   background: #7cedfc;
   width: 50px;
   height: 100%;
@@ -855,12 +930,12 @@ body {
   -webkit-box-align: end;
       -ms-flex-align: end;
           align-items: flex-end;
-  padding-right: .5em;
+  padding-right: 0.5em;
 }
 
 .comment-heart i {
-  -webkit-transition: .2s;
-  transition: .2s;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
   padding: 10px;
 }
 
@@ -929,12 +1004,12 @@ body {
 }
 
 #input-container span {
-  margin: .5em;
+  margin: 0.5em;
   font-size: 1.5em;
 }
 
 #name-input {
-  padding: .5em;
+  padding: 0.5em;
   outline: none;
 }
 
@@ -949,22 +1024,22 @@ body {
 }
 
 #comment-submit {
-  padding: .75em 7em;
+  padding: 0.75em 7em;
   background-color: #2d2d2d;
   color: #7cedfc;
   border: solid #7cedfc 4px;
   text-align: center;
   cursor: pointer;
-  -webkit-transition: .5s;
-  transition: .5s;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
 }
 
 #comment-submit:hover {
   background: #7cedfc;
   color: #2d2d2d;
   letter-spacing: 2px;
-  -webkit-transition: .25s;
-  transition: .25s;
+  -webkit-transition: 0.25s;
+  transition: 0.25s;
 }
 
 #footer {
@@ -1020,11 +1095,11 @@ body {
 }
 
 .anon {
-  opacity: .5;
+  opacity: 0.5;
 }
 
 .unregistered {
-  opacity: .5;
+  opacity: 0.5;
   color: #d9d9d9;
 }
 

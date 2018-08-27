@@ -17,22 +17,26 @@ import datetime
 #     template = loader.get_template('blog/home.html')
 #     return HttpResponse(template.render({}, request))
 
+
 def login(request):
     template = loader.get_template('blog/login.html')
     return HttpResponse(template.render({}, request))
 
-def post(request):
-    template = loader.get_template('blog/post.html')
-    return HttpResponse(template.render({}, request))
+
+# def post(request):
+#     template = loader.get_template('blog/post.html')
+#     return HttpResponse(template.render({}, request))
 
 # def newPost(request):
 #     template = loader.get_template('blog/new_post.html')
 #     return HttpResponse(template.render({}, request))
 
+
 class SignUp(CreateView):
     form_class = UnicornUserCreationForm
     success_url = reverse_lazy('home')
     template_name = 'blog/signup.html'
+
 
 class NewPost(CreateView):
     model = Post
@@ -42,7 +46,7 @@ class NewPost(CreateView):
     success_url = reverse_lazy('home')
     template_name = 'blog/new_post.html'
 
-    def get (self, request, *args, **kwargs):
+    def get(self, request, *args, **kwargs):
         if (not request.user.is_authenticated):
             return redirect('/signup/')
         return super(NewPost, self).get(request, *args, **kwargs)
@@ -52,7 +56,7 @@ class NewPost(CreateView):
         post.author = UnicornUser.objects.get(username=self.request.user)
 
         # create list of tags from request and remove empty strings
-        tags = self.request.POST.get('tags').replace('#','').split(',')
+        tags = self.request.POST.get('tags').replace('#', '').split(',')
         tags = list(filter(None, tags))
 
         for tag in tags:
@@ -83,6 +87,7 @@ class NewPost(CreateView):
 
         return HttpResponseRedirect('/')
 
+
 class MostRecentEntriesList(ListView):
     model = Post
     context_object_name = 'post_list'
@@ -93,7 +98,7 @@ class MostRecentEntriesList(ListView):
         queryset = self.model.objects.all()
         tags = self.request.GET.get('tags')
         if tags:
-            queryset = queryset.filter(tags__name = tags)
+            queryset = queryset.filter(tags__name=tags)
         return queryset
 
     # def get_context_data(self, **kwargs):
@@ -104,12 +109,13 @@ class MostRecentEntriesList(ListView):
     #     print(context["tags"])
     #     return context
 
+
 class PostDetail(DetailView):
     model = Post
-    template_name='blog/post.html'
+    template_name = 'blog/post.html'
     context_object_name = 'post'
     form_class = CommentForm
-    initial = {'comment':'Enter comment here', 'display_author':'nobody'}
+    initial = {'comment': 'Enter comment here', 'display_author': 'nobody'}
 
     def post(self, request, *args, **kwargs):
         print('posting')
@@ -121,21 +127,21 @@ class PostDetail(DetailView):
                 author = None
             else:
                 author = UnicornUser.objects.get(username=self.request.user)
-            
+
             display_author = f.cleaned_data['display_author']
             content = f.cleaned_data['content']
             post = self.get_object()
 
-            c = Comment(author=author, display_author=display_author, content=content, parent_post=post)
+            c = Comment(author=author, display_author=display_author,
+                        content=content, parent_post=post)
             c.save()
 
             return HttpResponseRedirect(request.path)
 
-
         self.object = self.get_object()
         context = self.get_context_data(object=self.object)
         return self.render_to_response(context)
-    
+
     def form_valid(self, form):
         print('************************doest this even get called?*****************************')
 
@@ -144,4 +150,5 @@ class PostDetail(DetailView):
 
         # context['comments'] = self.get_object().post_comments.all().filter(active=True).order_by('timestamp')
         context['form'] = self.form_class(initial=self.initial)
+        # context['comments'] = self.model.comments.all().order()
         return context

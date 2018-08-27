@@ -1,34 +1,26 @@
-{% extends "blog/base.html" %}
-{% load static %}
-
-{% block title %} Blog Post {% endblock title %}
-
-
-{% block css %}<link rel="stylesheet" type="text/css" href="{% static 'blog/css/post.css' %}" />{% endblock css %}
-
-
-{% block hero %}
-    <h1>{{ post.title }}</h1>
-{% endblock hero %}
-
-
-{% block top_nav %}
+{% extends "blog/base.html" %} {% load static %} {% block title %} Blog Post {% endblock title %} {% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'blog/css/post.css' %}" />{% endblock css %} {% block hero %}
+<h1>{{ post.title }}</h1>
+{% endblock hero %} {% block top_nav %}
 <nav id="nav-page" class="nav">
     <a href="{{ post.get_next_post_url }}" class="nav-item" id="next-btn">&lt;&lt; Newer Post</a>
     <a href="{% url 'home' %}" class="nav-item" id="home-btn"> == Home ==</a>
     <a href="{{ post.get_prev_post_url }}" class="nav-item" id="back-btn">Older Post &gt;&gt</a>
 </nav>
-{% endblock top_nav %}
-
-
-{% block main %}
+{% endblock top_nav %} {% block main %}
+<div class="spacer"></div>
 <article id="post-content">
     {{ post.content | safe }}
 </article>
-{% endblock main %}
-
-
-{% block post_main %}
+<div id="tags-list" class="blog-tags-container">
+    <h2 id="post-tag-header">Tags</h2>
+    <ul>
+        {% for tag in post.tags.all %}
+        <li class="tag">#{{ tag.name }}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock main %} {% block post_main %}
 <div id="post-info">
     <span id="post-author">[ {{ post.author }} ]</span>
     <div id="date-container">
@@ -41,72 +33,82 @@
         </i>
     </div>
 </div>
-{% endblock post_main %}
-
-
-{% block bot_nav %}
+{% endblock post_main %} {% block bot_nav %}
 <div id="comments">
     <a name="comments"></a>
     <div id="comments-header">
-        <div class="comments-header-item-left">  <span id="comment-count">{ Comments: {{ post.post_comments.count | stringformat:"04d" }} }</span> </div>
-        <div class="comments-header-item-right">  <a href="#new-comment" id="add-comment-link">++Add New Comment++</a> </div>
+        <div class="comments-header-item-left">
+            <span id="comment-count">{ Comments: {{ post.post_comments.count | stringformat:"04d" }} }</span>
+        </div>
+        <div class="comments-header-item-right">
+            <a href="#new-comment" id="add-comment-link">++Add New Comment++</a>
+        </div>
     </div>
     <ul>
-    {% for comment in post.post_comments.all %}
-    <li class="comment-container">
-        <div class="comment-info {% if comment.author == post.author %} author {% endif %}">
-            {% if comment.author == None %}
-            <span class="unregistered">(unregistered user)</span>
-            <span class="comment-username anon">{{ comment.display_author }}</span>
-            {% elif comment.author == post.author %}
-            <span class="comment-username author">{{ comment.display_author }}</span>
-            {% else %}
-            <span class="comment-username user">{{ comment.display_author }}</span>
-            {% endif %}
-            <span class="comment-date">{{ comment.timestamp | date:"n/j/y" }}</span>
-            <span class="comment-time">{{ comment.timestamp | date:"h:i A" }}</span>
-            {% if comment.is_edited %}
-            <span class="edited">(Edited)</span>
-            {% endif %}
-        </div>
-        
+        {% for comment in post.post_comments.all|dictsort:"timestamp" %}
+        <li class="comment-container">
+            <div class="comment-info {% if comment.author == post.author %} author {% endif %}">
+                {% if comment.author == None %}
+                <span class="unregistered">(unregistered user)</span>
+                <span class="comment-username anon">{{ comment.display_author }}</span>
+                {% elif comment.author == post.author %}
+                <span class="comment-username author">{{ comment.display_author }}</span>
+                {% else %}
+                <span class="comment-username user">{{ comment.display_author }}</span>
+                {% endif %}
+                <span class="comment-date">{{ comment.timestamp | date:"n/j/y" }}</span>
+                <span class="comment-time">{{ comment.timestamp | date:"h:i A" }}</span>
+                {% if comment.is_edited %}
+                <span class="edited">(Edited)</span>
+                {% endif %}
+                <span>{{ comment.likes.count }}</span>
+                <i class="fal fa-heart">
+                </i>
+            </div>
 
-        
-        <div class="comment-background skewed {% if comment.author == post.author %}author{% endif %}">
-        </div>
-        <div class="comment-content">
-            <p>{{ comment.content }}</p>
-        </div>
-        <div class="comment-controls-background skewed"></div>
-        <div class="comment-controls">
-            <div class="heart comment-heart"><i class="fal fa-heart"><span>999</span></i></div>
-        </div>
-    </li>
-    {% endfor %}
-    {% comment %} {% for x in "12345" %}
-    <li class="comment-container">
-        <div class="comment-info {% cycle '' '' '' '' 'author' %}">
-            {% if forloop.counter == 3 %}
-            <span class="unregistered">(unregistered user)</span>
-            {% endif %}
-            <span class="comment-username {% cycle 'user' 'user' 'anon' 'user' 'author' %}">{% lorem 1 w random %}</span>
-            <span class="comment-date">{% now "n/j/y" %}</span>
-            <span class="comment-time">{% now "h:i A" %}</span>
-            {% if forloop.counter == 4 %}
-            <span class="edited">(Edited)</span>
-            {% endif %}
-        </div>
-        <div class="comment-background skewed {% cycle '' '' '' '' 'author' %}">
-        </div>
-        <div class="comment-content">
-            {% lorem 1 p random %}
-        </div>
-        <div class="comment-controls-background skewed"></div>
-        <div class="comment-controls">
-            <div class="heart comment-heart"><i class="fal fa-heart"><span>999</span></i></div>
-        </div>
-    </li>
-    {% endfor %} {% endcomment %}
+
+            <div class="comment-background skewed {% if comment.author == post.author %}author{% endif %}">
+            </div>
+            <div class="comment-content">
+                <p>{{ comment.content }}</p>
+            </div>
+            <div class="comment-controls-background skewed"></div>
+            <div class="comment-controls">
+                <div class="heart comment-heart">
+                    <i class="fal fa-heart">
+                        <span>999</span>
+                    </i>
+                </div>
+            </div>
+        </li>
+        {% endfor %} {% comment %} {% for x in "12345" %}
+        <li class="comment-container">
+            <div class="comment-info {% cycle '' '' '' '' 'author' %}">
+                {% if forloop.counter == 3 %}
+                <span class="unregistered">(unregistered user)</span>
+                {% endif %}
+                <span class="comment-username {% cycle 'user' 'user' 'anon' 'user' 'author' %}">{% lorem 1 w random %}</span>
+                <span class="comment-date">{% now "n/j/y" %}</span>
+                <span class="comment-time">{% now "h:i A" %}</span>
+                {% if forloop.counter == 4 %}
+                <span class="edited">(Edited)</span>
+                {% endif %}
+            </div>
+            <div class="comment-background skewed {% cycle '' '' '' '' 'author' %}">
+            </div>
+            <div class="comment-content">
+                {% lorem 1 p random %}
+            </div>
+            <div class="comment-controls-background skewed"></div>
+            <div class="comment-controls">
+                <div class="heart comment-heart">
+                    <i class="fal fa-heart">
+                        <span>999</span>
+                    </i>
+                </div>
+            </div>
+        </li>
+        {% endfor %} {% endcomment %}
     </ul>
 </div>
 
@@ -119,11 +121,9 @@
             <div id="input-container">
                 <span>[Name]</span>
                 {% if user.is_authenticated %}
-                    <span>{{ user.username }}</span>
-                    <input type="hidden" name="display_author" value="{{ user.username }}">
-                {% else %}
-                <input type="text" id="name-input" name='display_author'>
-                {% endif %}
+                <span>{{ user.username }}</span>
+                <input type="hidden" name="display_author" value="{{ user.username }}"> {% else %}
+                <input type="text" id="name-input" name='display_author'> {% endif %}
                 <span>[Name]</span>
             </div>
             <textarea name="content" id="comment-input" cols="30" rows="10"></textarea>
@@ -132,22 +132,31 @@
         <div id="middle-stripe"></div>
     </div>
 </div>
-{% endblock bot_nav %}
-
-
-{% block footer %}
+{% endblock bot_nav %} {% block footer %}
 <footer id="footer">
     <div id="footer-lines"></div>
     <div id="footer-color"></div>
     <div id="footer-content">
         <span id="copyright">© Eric Varela</span>
         <div id="social">
-            <a class="social-icon" href=""><i class="fab fa-facebook"></i></a>
-            <a class="social-icon" href=""><i class="fab fa-github-square"></i></a>
-            <a class="social-icon" href=""><i class="fab fa-linkedin"></i></a>
-            <a class="social-icon" href=""><i class="fab fa-instagram"></i></a>
-            <a class="social-icon" href=""><i class="fab fa-reddit-square"></i></a>
-            <a class="social-icon" href=""><i class="fab fa-vimeo"></i></a>
+            <a class="social-icon" href="">
+                <i class="fab fa-facebook"></i>
+            </a>
+            <a class="social-icon" href="">
+                <i class="fab fa-github-square"></i>
+            </a>
+            <a class="social-icon" href="">
+                <i class="fab fa-linkedin"></i>
+            </a>
+            <a class="social-icon" href="">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a class="social-icon" href="">
+                <i class="fab fa-reddit-square"></i>
+            </a>
+            <a class="social-icon" href="">
+                <i class="fab fa-vimeo"></i>
+            </a>
         </div>
     </div>
 </footer>
