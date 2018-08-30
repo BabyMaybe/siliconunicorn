@@ -44,9 +44,9 @@
             <a href="#new-comment" id="add-comment-link">++Add New Comment++</a>
         </div>
     </div>
-    <ul>
+    <ul id="comments-list">
         {% for comment in post.post_comments.all|dictsort:"timestamp" %}
-        <li class="comment-container">
+        <li class="comment-container" data-cid="{{comment.id}}">
             <div class="comment-info {% if comment.author == post.author %} author {% endif %}">
                 {% if comment.author == None %}
                 <span class="unregistered">(unregistered user)</span>
@@ -56,30 +56,40 @@
                 {% else %}
                 <span class="comment-username user">{{ comment.display_author }}</span>
                 {% endif %}
-                <span class="comment-date">{{ comment.timestamp | date:"n/j/y" }}</span>
-                <span class="comment-time">{{ comment.timestamp | date:"h:i A" }}</span>
-                {% if comment.is_edited %}
-                <span class="edited">(Edited)</span>
-                {% endif %}
-                <span>{{ comment.likes.count }}</span>
-                <i class="fal fa-heart">
-                </i>
+                <div class="comment-date-heart">
+                    <div class="comment-date-time">
+                        <span class="comment-date">{{ comment.timestamp | date:"n/j/y" }}</span>
+                        <span class="comment-time">{{ comment.timestamp | date:"h:i A" }}</span>
+                    </div>
+                    {% if comment.is_edited %}
+                    <span class="edited">(Edited)</span>
+                    {% endif %}
+                    <div class="comment-heart">
+                        <span>{{ comment.likes.count }}</span>
+                        <i class="far fa-heart {% if comment.author == post.author %}author{% endif %}"></i>
+                    </div>
+                </div>
             </div>
 
 
             <div class="comment-background skewed {% if comment.author == post.author %}author{% endif %}">
             </div>
             <div class="comment-content">
-                <p>{{ comment.content }}</p>
+                {% if comment.active %}
+                <p>{{ comment.content }}</p> {% else %} [ DELETED ] {% endif %}
             </div>
-            <div class="comment-controls-background skewed"></div>
-            <div class="comment-controls">
-                <div class="heart comment-heart">
-                    <i class="fal fa-heart">
-                        <span>999</span>
-                    </i>
+            {% if comment.author == user %}
+            <div class="comment-controls-background comment-controls-edit skewed"></div>
+            <div class="comment-controls-container">
+                <div class="comment-controls">
+                    <span class="comment-edit">\ \ \ Edit \ \ \</span>
+                    <span class="comment-delete">: : Delete : :</span>
                 </div>
             </div>
+            {% else %}
+            <div class="comment-controls-background skewed"></div>
+            {% endif %}
+
         </li>
         {% endfor %} {% comment %} {% for x in "12345" %}
         <li class="comment-container">
@@ -131,6 +141,7 @@
         </form>
         <div id="middle-stripe"></div>
     </div>
+    <button class="ajax" id="ajax">AJAX ATTAX</button>
 </div>
 {% endblock bot_nav %} {% block footer %}
 <footer id="footer">
@@ -160,4 +171,5 @@
         </div>
     </div>
 </footer>
-{% endblock footer %}
+{% endblock footer %} {% block scripts %}
+<script src="{% static 'blog/js/comments.js' %}"></script> {% endblock scripts %}

@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect
 
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, ListView, DetailView
+from django.views.generic import CreateView, ListView, DetailView, UpdateView
 
-from django.http import HttpResponse, HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.template import loader
 
 from django.utils.text import slugify
@@ -12,6 +13,7 @@ from .forms import UnicornUserCreationForm, NewPostForm, CommentForm
 from .models import Post, UnicornUser, Tag, Comment
 # Create your views here.
 import datetime
+import json
 
 # def home(request):
 #     template = loader.get_template('blog/home.html')
@@ -152,3 +154,21 @@ class PostDetail(DetailView):
         context['form'] = self.form_class(initial=self.initial)
         # context['comments'] = self.model.comments.all().order()
         return context
+
+
+#  AJAX TESTS #
+
+@login_required
+def ajax_test(request):
+    print(request.body)
+    body = json.loads(request.body)
+    print(body)
+    comment = Comment.objects.get(pk=body['cid'])
+    print(comment)
+    print(comment.active)
+    comment.active = body['active']
+    comment.save()
+    print(comment.active)
+
+    data = {'test': 'this is a test response'}
+    return JsonResponse(data)
