@@ -46,20 +46,20 @@
         <ul>
             {% for tag in post.tags.all %}
             <li class="blog-tag">
-                <a href="?tags={{ tag.name }}">{{ tag.name }}</a>
+                <a href="?tags={{ tag.name }}">#{{ tag.name }}</a>
             </li>
             {% endfor %}
         </ul>
     </div>
 
     <div class="blog-comments-box">
-        <div class="heart blog-hearts">
+        <div class="heart blog-hearts" data-pid="{{ post.id }}">
             <i class="fas fa-heart">
                 <span>{{ post.likes.count }}</span>
             </i>
         </div>
         <a href="{% url 'post_detail' post.slug %}#comments">
-            <div class="blog-comments"> { Comments: {{ post.post_comments.count }} } </div>
+            <div class="blog-comments"> { Comments: {{ post.get_comment_count | stringformat:"04d" }} } </div>
         </a>
     </div>
 </section>
@@ -80,4 +80,5 @@
     <a href="" class="nav-item nav-disabled" id="next-btn">Older &gt;&gt;</a>
     {% endif %}
 </nav>
-{% endblock bot_nav %} {% comment %} use default footer block {% endcomment %}
+{% endblock bot_nav %} {% comment %} use default footer block {% endcomment %} {% block scripts %}
+<script src="{% static 'blog/js/home.js' %}"></script> {% endblock scripts %}

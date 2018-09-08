@@ -150,25 +150,92 @@ class PostDetail(DetailView):
     def get_context_data(self, **kwargs):
         context = super(PostDetail, self).get_context_data(**kwargs)
 
-        # context['comments'] = self.get_object().post_comments.all().filter(active=True).order_by('timestamp')
+        context['comments'] = self.get_object().post_comments.all().filter(
+            active=True).order_by('timestamp')
         context['form'] = self.form_class(initial=self.initial)
         # context['comments'] = self.model.comments.all().order()
         return context
 
 
 #  AJAX TESTS #
+def ajax_comment_add(request):
+    print('posting')
 
-@login_required
-def ajax_test(request):
-    print(request.body)
     body = json.loads(request.body)
     print(body)
+    f = CommentForm(body)
+    data = {'status': 'recieved'}
+    print('#############################  form  #################################')
+    print(f)
+    print('#############################  cleaned form  #################################')
+    print(f.cleaned_data)
+    if (f.is_valid()):
+        print('form is valid')
+        isAnonymous = false
+        if (request.user.is_anonymous):
+            author = None
+            anonymous = True
+        else:
+            author = UnicornUser.objects.get(username=request.user)
+
+        display_author = f.cleaned_data['display_author']
+        content = f.cleaned_data['content']
+
+        post = Post.objects.get(id=body['pid'])
+
+        c = Comment(author=author, display_author=display_author,
+                    content=content, parent_post=post)
+        c.save()
+
+        data.update({'display_author': display_author,
+                     'content': content,
+                     'timestamp': c.timestamp,
+                     'cid': c.pk,
+                     'isAuthor': c.author == post.author,
+                     'anonymous': anonymous,
+                     'status': 'success'})
+
+        return JsonResponse(data)
+    else:
+        data.update({"status": "failed to add comment"})
+        return JsonResponse(data)
+
+
+@login_required
+def ajax_comment_delete(request):
+    body = json.loads(request.body)
     comment = Comment.objects.get(pk=body['cid'])
-    print(comment)
-    print(comment.active)
     comment.active = body['active']
     comment.save()
-    print(comment.active)
 
-    data = {'test': 'this is a test response'}
+    data = {'deleted': 'comment deleted'}
+    return JsonResponse(data)
+
+
+@login_required
+def ajax_comment_edit(request):
+    body = json.loads(request.body)
+    comment = Comment.objects.get(pk=body['cid'])
+    comment.content = body['content']
+    comment.last_edited = datetime.datetime.now()
+    comment.save()
+
+    data = {'edited': 'comment edited'}
+    return JsonResponse(data)
+
+
+@login_required
+def ajax_post_heart(request):
+    body = json.loads(request.body)
+    post = Post.objects.get(pk=body['pid'])
+    status = ''
+    if (post.likes.filter(username=request.user).exists()):
+        post.likes.remove(request.user)
+        status = 'unhearted'
+    else:
+        post.likes.add(request.user)
+        status = 'hearted'
+    post.save()
+
+    data = {'hearted': status}
     return JsonResponse(data)

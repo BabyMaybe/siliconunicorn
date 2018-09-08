@@ -107,6 +107,10 @@ body {
     // flex: 1;
     padding: 0.4em;
     font-size: 0.75em;
+
+    a.tag-link {
+        padding: 0;
+    }
 }
 
 .tag:hover {
@@ -285,6 +289,7 @@ body {
 .skewed {
     transform: skewX(-30deg);
     -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
 }
 
 .comment-background {
@@ -374,6 +379,10 @@ body {
             color: $post-color;
             border-top: solid $post-color 3px;
         }
+
+        &.comment-edit {
+            padding-left: 2em;
+        }
     }
 }
 
@@ -388,6 +397,7 @@ body {
     top: 6px;
     z-index: 2;
 }
+
 // .comment-heart {
 //   grid-area: controls;
 //   z-index: 1;
@@ -511,6 +521,7 @@ body {
     text-align: center;
     cursor: pointer;
     transition: 0.5s;
+    outline: none;
 
     &:hover {
         background: $post-color;
@@ -542,6 +553,7 @@ body {
     background-color: $black;
     height: 500%;
     -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
 }
 
 #footer-color {
@@ -601,4 +613,12 @@ body {
         color: $black;
         border-color: $post-color;
     }
+}
+
+.editing {
+    background: lighten($black, 50%);
+    border: solid $lightgrey 4px;
+    padding: 1em;
+    outline: none;
+    color: $black;
 }
