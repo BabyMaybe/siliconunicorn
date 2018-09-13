@@ -1,13 +1,14 @@
-@import 'style';
+@import "style";
 
 $post-color: $purplec;
 $post-highlight: lighten($post-color, 16%);
 
 body {
-    grid-template-areas: "header"
-                         "nav-blog"
-                         "main"
-                         "footer";
+    grid-template-areas:
+        "header"
+        "nav-blog"
+        "main"
+        "footer";
     grid-template-rows: auto 76px 1fr 93px;
 }
 
@@ -16,9 +17,9 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    h1{
-        font-size: calc(10vw * .7);
-        padding: .5em;
+    h1 {
+        font-size: calc(10vw * 0.7);
+        padding: 0.5em;
     }
 }
 
@@ -38,27 +39,15 @@ body {
 #main {
     border-top: solid $post-color 6px;
     border-bottom: solid $post-color 6px;
-    // display: flex;
-    // justify-content: center;
-    // align-items: center;
-    // padding: 0 2em;
 
     display: grid;
-    grid-template-areas: ". controls tags"
-                        ". article tags"
-                        ". buttons tags";
+    grid-template-areas:
+        ". controls tags"
+        ". article tags"
+        ". buttons tags";
     grid-template-columns: 1fr 42em 1fr;
     grid-template-rows: 47px 1fr 72px;
-
 }
-
-// #new-post-container {
-//     display: flex;
-//     flex-direction: column;
-//     justify-content: space-between;
-//     height: 100%;
-// }
-
 
 #new-post-controls {
     display: flex;
@@ -94,7 +83,7 @@ body {
 }
 
 .control-panel-item:active {
-    i{
+    i {
         color: $grey;
     }
 }
@@ -105,9 +94,13 @@ body {
     width: 40em;
     outline: none;
     flex: 1;
-    background-color: rgba($grey,.05);
+    background-color: rgba($grey, 0.05);
     grid-area: article;
     height: calc(100% - 2em);
+
+    code {
+        outline: none;
+    }
 }
 
 .new-post-button {
@@ -116,8 +109,6 @@ body {
     border-color: $post-color;
     align-self: center;
     outline: none;
-    // margin-bottom: 8px;
-    // margin-top: 1em;
     font-family: $arvo;
 }
 
@@ -126,11 +117,6 @@ body {
     color: $black;
     border-color: $post-color;
 }
-
-// .new-post-button:active {
-//     background-color: $post-highlight;
-//     border-color: $post-color;
-// }
 
 #post-buttons {
     display: flex;
@@ -163,7 +149,6 @@ h2 {
     align-items: center;
 
     #tags-header {
-        // background-color: $post-color;
         width: 100%;
         height: 47px;
         margin-top: 3px;
@@ -196,9 +181,13 @@ h2 {
 
         .blog-tag {
             flex: 1;
+
+            &:hover {
+                border-color: $post-color;
+            }
         }
 
-        .blog-tag:hover{
+        .blog-tag:hover {
             background-color: $post-color;
         }
 
@@ -208,6 +197,144 @@ h2 {
             cursor: auto;
             flex-basis: 100%;
             margin-top: 1em;
+            padding: 0.5em;
+            outline: none;
+
+            &:focus {
+                border-color: $post-color;
+            }
         }
     }
+}
+
+.blog-content {
+    font-family: $body-font;
+    grid-area: content;
+    line-height: 2;
+
+    h1 {
+        color: $post-color;
+        text-align: center;
+    }
+
+    ul {
+        list-style: disc;
+        padding-left: 1em;
+    }
+
+    a {
+        color: $post-color;
+        cursor: pointer;
+        text-decoration: underline;
+    }
+}
+
+#modal {
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(white, 0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: $red;
+    padding: 1em;
+    border: solid $black 8px;
+    position: relative;
+}
+
+.modal-header {
+    text-align: center;
+    color: $black;
+    font-size: 2em;
+    margin: 0em;
+}
+
+.modal-close-btn {
+    color: $black;
+    position: absolute;
+    right: 0;
+    top: 0;
+    /* padding: 1em; */
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    // border: solid $black 3px;
+    // border-top: 0;
+    // border-right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5em;
+    cursor: pointer;
+}
+
+.modal-input-container {
+    display: flex;
+    justify-content: center;
+    padding: 1em;
+
+    label {
+        padding: 13px;
+        color: $black;
+        cursor: pointer;
+        background-color: white;
+        border: solid $black 4px;
+        font-family: $arvo;
+        display: flex;
+        align-items: center;
+        width: 33%;
+        justify-content: center;
+        &:hover {
+            color: $red;
+            background-color: $black;
+        }
+    }
+
+    input[type="file"] {
+        display: none;
+    }
+}
+
+.modal-label {
+    color: $black;
+}
+
+.modal-input {
+    padding: 0.25em;
+    outline: none;
+    border: solid $black 3px;
+}
+
+.modal-controls {
+    display: flex;
+    justify-content: space-evenly;
+    padding: 1em;
+}
+
+.modal-btn {
+    color: $black;
+    border-color: $black;
+    flex: 0 0 33%;
+    outline: none;
+    border-width: 4px;
+}
+
+.modal-btn:hover {
+    color: $red;
+    background-color: $black;
+    border-color: $black;
+}
+
+.modal-hidden {
+    display: none;
+}
+
+#modal.modal-hidden {
+    display: none;
 }

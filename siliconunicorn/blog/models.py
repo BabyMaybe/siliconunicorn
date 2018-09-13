@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-from django.contrib.auth.models import User
-import random
+# from django.contrib.auth.models import User
+# import random
 
 
 # Custom User for future customization
@@ -19,7 +19,7 @@ class Tag(models.Model):
         return self.name
 
 
-#Blog Post Class
+# Blog Post Class
 class Post(models.Model):
     def __str__(self):
         return self.title
@@ -27,12 +27,15 @@ class Post(models.Model):
     title = models.CharField(max_length=200)
     slug = models.SlugField(unique=True)
     content = models.TextField()
-    author = models.ForeignKey(UnicornUser, related_name='post_author', on_delete=models.CASCADE)
+    author = models.ForeignKey(
+        UnicornUser, related_name='post_author', on_delete=models.CASCADE)
     date_published = models.DateTimeField(auto_now_add=True)
-    last_edited = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+    last_edited = models.DateTimeField(
+        auto_now_add=True, null=True, blank=True)
     comment_count = models.IntegerField(default=0)
     like_count = models.IntegerField(default=0)
-    likes = models.ManyToManyField(UnicornUser, related_name='post_likes', blank=True)
+    likes = models.ManyToManyField(
+        UnicornUser, related_name='post_likes', blank=True)
     active = models.BooleanField(default=True)
     tags = models.ManyToManyField(Tag, blank=True)
 
@@ -50,23 +53,23 @@ class Post(models.Model):
     #     print(args)
     #     print("********************* KWARGS *********************")
     #     print(kwargs)
-    #         # super().save(*args, **kwargs)  # Call the "real" save() 
+    #         # super().save(*args, **kwargs)  # Call the "real" save()
 
     def get_absolute_url(self):
         return "/%s" % self.slug
 
     @property
     def get_next_post_url(self):
-        next = self.pk + 1
+        nextPost = self.pk + 1
         total = Post.objects.latest('id').id
-        while next <= total:
+        while nextPost <= total:
             try:
-                p = Post.objects.get(pk=next)
+                p = Post.objects.get(pk=nextPost)
                 if (p.active == True):
                     return '/blog/' + p.slug
             except Post.DoesNotExist:
                 pass
-            next += 1
+            nextPost += 1
         return '/'
 
     @property
@@ -89,19 +92,24 @@ class Post(models.Model):
         return self.post_comments.filter(active=True).count()
 
 
-#Comment Class
+# Comment Class
 class Comment(models.Model):
     def __str__(self):
         return self.content
 
-    display_author = models.CharField(max_length=200, default="anonymous coward")
-    author = models.ForeignKey(UnicornUser, related_name='comment_author', null=True, blank=True, on_delete=models.CASCADE)
+    display_author = models.CharField(
+        max_length=200, default="anonymous coward")
+    author = models.ForeignKey(UnicornUser, related_name='comment_author',
+                               null=True, blank=True, on_delete=models.CASCADE)
     timestamp = models.DateTimeField(auto_now_add=True)
-    last_edited = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+    last_edited = models.DateTimeField(
+        auto_now_add=True, null=True, blank=True)
     content = models.TextField()
-    parent_post = models.ForeignKey('Post', related_name='post_comments', on_delete=models.CASCADE)
+    parent_post = models.ForeignKey(
+        'Post', related_name='post_comments', on_delete=models.CASCADE)
     active = models.BooleanField(default=True)
-    likes = models.ManyToManyField(UnicornUser, related_name='comment_likes', blank=True)
+    likes = models.ManyToManyField(
+        UnicornUser, related_name='comment_likes', blank=True)
     like_count = models.IntegerField(default=0)
 
     def save(self, *args, **kwargs):
@@ -116,3 +124,7 @@ class Comment(models.Model):
     @property
     def is_edited(self):
         return self.last_edited.replace(microsecond=0) > self.timestamp.replace(microsecond=0)
+
+
+class BlogImage(models.Model):
+    docfile = models.ImageField(upload_to="documents/%Y/%m/%d")

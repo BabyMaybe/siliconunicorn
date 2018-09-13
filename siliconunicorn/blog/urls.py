@@ -1,6 +1,7 @@
 from django.urls import path
 from django.contrib.auth.views import LoginView
 
+
 from . import views
 
 urlpatterns = [
@@ -12,5 +13,8 @@ urlpatterns = [
     path('ajax/comment/add', views.ajax_comment_add, name="add_comment"),
     path('ajax/comment/delete', views.ajax_comment_delete, name="delete_comment"),
     path('ajax/comment/edit', views.ajax_comment_edit, name="edit_comment"),
+    path('ajax/comment/heart', views.ajax_comment_heart, name="heart_comment"),
     path('ajax/post/heart', views.ajax_post_heart, name="heart_post"),
+    path('ajax/image/upload', views.ajax_img_upload, name="image_upload"),
+
 ]

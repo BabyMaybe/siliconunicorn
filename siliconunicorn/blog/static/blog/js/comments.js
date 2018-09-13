@@ -10,6 +10,8 @@ function commentControls(e) {
     const commentContainer = target.closest("li");
     let endpoint = "";
 
+    console.log("comment controls working");
+
     if (target.matches(".comment-edit")) {
         let comment = commentContainer.getElementsByClassName(
             "comment-content"
@@ -154,39 +156,118 @@ function addComment(e) {
             return response.json();
         })
         .then(function(data) {
-            if (data.status === "success"):
-            let newComment = document.createElement('li');
-                let newCommentHTML =
-                `<li class="comment-container" data-cid="${ data.cid }">
-                    <div class="comment-info ${ data.isAuthor ? 'author' : '' }">
-                        ${ data.isAnonymous ? `<span class="unregistered">(unregistered user)</span>
-                        < span class="comment-username anon"> ${ data.display_author } </span >` : ''}
-                        ${ data.isAuthor ? `<span class="comment-username author">${ data.display_author }</span>` : ''}
-                        ${ !data.isAuthor && !data.isAnonymous ? `<span class="comment-username user">${ data.display_author }</span>` : ''}
-                        <div class="comment-date-heart">
-                            <div class="comment-date-time">
-                                <span class="comment-date">${ data.timestamp }</span>
-                                <span class="comment-time">${ data.timestamp }</span>
-                            </div>
-                            <div class="comment-heart">
-                                <span>0</span>
-                                <i class="far fa-heart ${ data.isAuthor ? 'author' : ''}"></i>
-                            </div>
+            if (data.status === "success") {
+                let newComment = document.createElement("li");
+                let date = new Date(data.timestamp);
+                let dateOptions = {
+                    day: "numeric",
+                    month: "numeric",
+                    year: "2-digit"
+                };
+                let timeOptions = {
+                    hour: "2-digit",
+                    minute: "2-digit"
+                };
+                let newCommentHTML = `<li class="comment-container" data-cid="${
+                    data.cid
+                }">
+                <div class="comment-info ${data.isAuthor ? "author" : ""}">
+                    ${
+                        data.isAnonymous
+                            ? `<span class="unregistered">(unregistered user)</span>
+                    < span class="comment-username anon"> ${
+                        data.display_author
+                    } </span >`
+                            : ""
+                    }
+                    ${
+                        data.isAuthor
+                            ? `<span class="comment-username author">${
+                                  data.display_author
+                              }</span>`
+                            : ""
+                    }
+                    ${
+                        !data.isAuthor && !data.isAnonymous
+                            ? `<span class="comment-username user">${
+                                  data.display_author
+                              }</span>`
+                            : ""
+                    }
+                    <div class="comment-date-heart">
+                        <div class="comment-date-time">
+                            <span class="comment-date">${date.toLocaleDateString(
+                                "en-US",
+                                dateOptions
+                            )}</span>
+                            <span class="comment-time">${date.toLocaleTimeString(
+                                "en-US",
+                                timeOptions
+                            )}</span>
+                        </div>
+                        <div class="comment-heart">
+                            <span>0</span>
+                            <i class="far fa-heart ${
+                                data.isAuthor ? "author" : ""
+                            }"></i>
                         </div>
                     </div>
-                    <div class="comment-background skewed ${ data.isAuthor ? 'author' : ''}"></div>
-                    <div class="comment-content">
-                        <p>${ data.content }</p>
+                </div>
+                <div class="comment-background skewed ${
+                    data.isAuthor ? "author" : ""
+                }"></div>
+                <div class="comment-content">
+                    <p>${data.content}</p>
+                </div>
+                <div class="comment-controls-background comment-controls-edit skewed"></div>
+                <div class="comment-controls-container">
+                    <div class="comment-controls">
+                        <span class="comment-edit">\\ \\ \\ Edit \\ \\ \\</span>
+                        <span class="comment-delete">: : Delete : :</span>
                     </div>
-                    <div class="comment-controls-background comment-controls-edit skewed"></div>
-                    <div class="comment-controls-container">
-                        <div class="comment-controls">
-                            <span class="comment-edit">\ \ \ Edit \ \ \</span>
-                            <span class="comment-delete">: : Delete : :</span>
-                        </div>
-                    </div>
-                </li>`
-            newComment.innerHTML = newCommentHTML;
-            comments.appendChild(newComment);
+                </div>
+            </li>`;
+                comments.appendChild(newComment);
+                newComment.outerHTML = newCommentHTML;
+                editableComments[editableComments.length - 1].addEventListener(
+                    "click",
+                    commentControls
+                );
+                document.getElementById("comment-input").value = "";
+            }
+        });
+}
+
+hearts = document.getElementsByClassName("comment-heart-click");
+for (let i = 0; i < hearts.length; i++) {
+    hearts[i].addEventListener("click", heartComment);
+}
+
+function heartComment(e) {
+    console.log("hearting comments");
+    cid = this.closest(".comment-container").dataset.cid;
+    const heartNum = this.parentElement.firstElementChild;
+    let data = { cid: cid };
+
+    fetch("/ajax/comment/heart", {
+        method: "POST",
+        credentials: "same-origin",
+        headers: {
+            "X-CSRFToken": Cookies.get("csrftoken"),
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            "X-Requested-With": "XMLHttpRequest"
+        },
+        body: JSON.stringify(data)
+    })
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(data) {
+            if (data.hearted === "hearted") {
+                heartNum.textContent = parseInt(heartNum.textContent) + 1;
+            } else {
+                heartNum.textContent = parseInt(heartNum.textContent) - 1;
+            }
         });
 }

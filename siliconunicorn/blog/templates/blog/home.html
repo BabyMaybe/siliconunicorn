@@ -1,5 +1,23 @@
-{% extends "blog/base.html" %} {% load static %} {% block title %} SiliconUnicorn {% endblock title %} {% block css %}
-<link rel="stylesheet" type="text/css" href="{% static 'blog/css/style.css' %}" /> {% endblock css %} {% comment %} accounts block in by default {% endcomment %} {% block hero %}
+{% extends "blog/base.html" %}
+<!--  -->
+{% load static %}
+<!--  -->
+{% block title %} SiliconUnicorn {% endblock title %}
+<!--  -->
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'blog/css/style.css' %}" />
+<!--  -->
+{% endblock css %}
+<!--  -->
+{% comment %} accounts block in by default {% endcomment %}
+<!--  -->
+{% block hero %}
+<!--  -->
+{% if perms.blog.add_post %}
+<div class="new-post" id="new-post-button">
+    <a href="/new">++ Add Post ++</a>
+</div>
+{% endif %}
 <h1>
     <svg id="hero_logo" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 787.51 329.46">
         <title>SiliconUnicorn_Logo</title>
@@ -23,7 +41,13 @@
         <path d="M88.6,176.06l28.2,76.7q14,38.1,28.4,76.7H121.8q-14.2-38.61-28.2-76.7t-28.4-76.7Z" />
     </svg>
 </h1>
-{% endblock hero %} {% comment %} use top nav default {% endcomment %} {% block main %} {% for post in post_list %}
+{% endblock hero %}
+<!--  -->
+{% comment %} use top nav default {% endcomment %}
+<!--  -->
+{% block main %}
+<!--  -->
+{% for post in post_list %}
 
 <a href="{% url 'post_detail' post.slug %}">
     <h2 class="blog-title">{{ post.title }}</h2>

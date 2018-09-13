@@ -5,10 +5,6 @@ for (let i = 0; i < hearts.length; i++) {
 }
 
 function heartControls(e) {
-    console.log("tryna heart");
-    console.log(this);
-    console.log(this.dataset);
-    console.log(this.dataset.pid);
     const target = e.target;
 
     const pid = this.dataset.pid;

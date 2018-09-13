@@ -1,28 +1,30 @@
-from django.shortcuts import render, redirect
+import json
+import datetime
+
+from django.shortcuts import redirect
 
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, ListView, DetailView, UpdateView
+from django.views.generic import CreateView, ListView, DetailView
 
+from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.template import loader
 
 from django.utils.text import slugify
 
-from .forms import UnicornUserCreationForm, NewPostForm, CommentForm
+from .forms import UnicornUserCreationForm, CommentForm, BlogImageForm
 from .models import Post, UnicornUser, Tag, Comment
 # Create your views here.
-import datetime
-import json
 
 # def home(request):
 #     template = loader.get_template('blog/home.html')
 #     return HttpResponse(template.render({}, request))
 
 
-def login(request):
-    template = loader.get_template('blog/login.html')
-    return HttpResponse(template.render({}, request))
+# def login(request):
+#     template = loader.get_template('blog/login.html')
+#     return HttpResponse(template.render({}, request))
 
 
 # def post(request):
@@ -39,6 +41,14 @@ class SignUp(CreateView):
     success_url = reverse_lazy('home')
     template_name = 'blog/signup.html'
 
+    def form_valid(self, form):
+        valid = super(SignUp, self).form_valid(form)
+        username, password = form.cleaned_data.get(
+            'username'), form.cleaned_data.get('password1')
+        new_user = authenticate(username=username, password=password)
+        login(self.request, new_user)
+        return valid
+
 
 class NewPost(CreateView):
     model = Post
@@ -49,7 +59,7 @@ class NewPost(CreateView):
     template_name = 'blog/new_post.html'
 
     def get(self, request, *args, **kwargs):
-        if (not request.user.is_authenticated):
+        if not request.user.is_authenticated:
             return redirect('/signup/')
         return super(NewPost, self).get(request, *args, **kwargs)
 
@@ -74,10 +84,10 @@ class NewPost(CreateView):
 
         slug = slugify(post.title)
         existing_posts = Post.objects.filter(slug=slug)
-        if len(existing_posts) > 0:
+        if existing_posts:
             slug += f'_{timestamp.month}_{timestamp.day}_{timestamp.year}'
             existing_posts = Post.objects.filter(slug=slug)
-            if len(existing_posts) > 0:
+            if existing_posts:
                 slug += f'_str{timestamp.hour}_{timestamp.minute}'
 
         post.slug = slug
@@ -122,16 +132,16 @@ class PostDetail(DetailView):
     def post(self, request, *args, **kwargs):
         print('posting')
         # print(request.POST)
-        f = CommentForm(request.POST)
-        if (f.is_valid()):
+        c_form = CommentForm(request.POST)
+        if c_form.is_valid():
 
-            if (request.user.is_anonymous):
+            if request.user.is_anonymous:
                 author = None
             else:
                 author = UnicornUser.objects.get(username=self.request.user)
 
-            display_author = f.cleaned_data['display_author']
-            content = f.cleaned_data['content']
+            display_author = c_form.cleaned_data['display_author']
+            content = c_form.cleaned_data['content']
             post = self.get_object()
 
             c = Comment(author=author, display_author=display_author,
@@ -140,12 +150,9 @@ class PostDetail(DetailView):
 
             return HttpResponseRedirect(request.path)
 
-        self.object = self.get_object()
-        context = self.get_context_data(object=self.object)
+        obj = self.get_object()
+        context = self.get_context_data(object=obj)
         return self.render_to_response(context)
-
-    def form_valid(self, form):
-        print('************************doest this even get called?*****************************')
 
     def get_context_data(self, **kwargs):
         context = super(PostDetail, self).get_context_data(**kwargs)
@@ -162,37 +169,33 @@ def ajax_comment_add(request):
     print('posting')
 
     body = json.loads(request.body)
-    print(body)
-    f = CommentForm(body)
-    data = {'status': 'recieved'}
-    print('#############################  form  #################################')
-    print(f)
-    print('#############################  cleaned form  #################################')
-    print(f.cleaned_data)
-    if (f.is_valid()):
+    form = CommentForm(body)
+    data = {'status': 'received'}
+
+    if form.is_valid():
         print('form is valid')
-        isAnonymous = false
-        if (request.user.is_anonymous):
+        is_anonymous = False
+        if request.user.is_anonymous:
             author = None
-            anonymous = True
+            is_anonymous = True
         else:
             author = UnicornUser.objects.get(username=request.user)
 
-        display_author = f.cleaned_data['display_author']
-        content = f.cleaned_data['content']
+        display_author = form.cleaned_data['display_author']
+        content = form.cleaned_data['content']
 
         post = Post.objects.get(id=body['pid'])
 
-        c = Comment(author=author, display_author=display_author,
-                    content=content, parent_post=post)
-        c.save()
+        new_comment = Comment(author=author, display_author=display_author,
+                              content=content, parent_post=post)
+        new_comment.save()
 
         data.update({'display_author': display_author,
                      'content': content,
-                     'timestamp': c.timestamp,
-                     'cid': c.pk,
-                     'isAuthor': c.author == post.author,
-                     'anonymous': anonymous,
+                     'timestamp': new_comment.timestamp,
+                     'cid': new_comment.pk,
+                     'isAuthor': new_comment.author == post.author,
+                     'isAnonymous': is_anonymous,
                      'status': 'success'})
 
         return JsonResponse(data)
@@ -225,11 +228,28 @@ def ajax_comment_edit(request):
 
 
 @login_required
+def ajax_comment_heart(request):
+    body = json.loads(request.body)
+    comment = Comment.objects.get(pk=body['cid'])
+    status = ''
+    if comment.likes.filter(username=request.user).exists():
+        comment.likes.remove(request.user)
+        status = 'unhearted'
+    else:
+        comment.likes.add(request.user)
+        status = 'hearted'
+    comment.save()
+
+    data = {'hearted': status}
+    return JsonResponse(data)
+
+
+@login_required
 def ajax_post_heart(request):
     body = json.loads(request.body)
     post = Post.objects.get(pk=body['pid'])
     status = ''
-    if (post.likes.filter(username=request.user).exists()):
+    if post.likes.filter(username=request.user).exists():
         post.likes.remove(request.user)
         status = 'unhearted'
     else:
@@ -238,4 +258,20 @@ def ajax_post_heart(request):
     post.save()
 
     data = {'hearted': status}
+    return JsonResponse(data)
+
+
+def ajax_img_upload(request):
+    files = request.FILES
+
+    form = BlogImageForm(request, files=files)
+
+    data = {}
+
+    if form.is_valid():
+        img = form.save()
+        data = {
+            'url': img.docfile.url
+        }
+
     return JsonResponse(data)

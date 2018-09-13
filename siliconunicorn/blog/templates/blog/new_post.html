@@ -10,8 +10,37 @@
             <>
     </a>
 </nav>
-{% endblock top_nav %} {% block main %}
-{% comment %} <div id="new-post-container"> {% endcomment %}
+{% endblock top_nav %}
+
+<!--  -->
+
+{% block main %} {% comment %}
+<div id="new-post-container"> {% endcomment %}
+
+    <div id="modal" class="modal-hidden">
+        <div class="modal-content">
+            <h3 class="modal-header">Enter Information:</h3>
+            <div class="modal-close-btn" id="modal-close-btn">
+                <i class="fal fa-times"></i>
+            </div>
+            <div class="modal-input-container">
+
+                <input type="text" class="modal-input modal-hidden" name="modal-input" id="modal-input-link">
+
+                <label id="modal-input-file" class="modal-hidden">
+                    <span id="modal-input-file-text"> Upload Image </span>
+                    <form id="imageForm">
+                        <input type="file" id="id_docfile" name="docfile">
+                    </form>
+                </label>
+
+            </div>
+            <div class="modal-controls">
+                <button class="modal-btn" id="modal-ok">Ok</button>
+                <button class="modal-btn" id="modal-cancel">Cancel</button>
+            </div>
+        </div>
+    </div>
 
     <div id="new-post-controls">
         <div class="control-panel">
@@ -32,15 +61,18 @@
             <div class="control-panel-item" onclick="formatDoc('insertunorderedlist');">
                 <i class="far fa-list"></i>
             </div>
-            <div class="control-panel-item" onchange="formatDoc('formatblock','h3');">
+            <div class="control-panel-item" onclick="formatDoc('formatblock','h1');">
                 <i class="fas fa-heading"></i>
             </div>
         </div>
         <div class="control-panel">
-            <div class="control-panel-item" onclick="let user_url=prompt('Enter URL here','http:\/\/');if(user_url&&user_url!=''&&user_url!='http://'){formatDoc('createlink',sLnk)}">
+            <div class="control-panel-item" onclick="addLink()">
                 <i class="fas fa-link"></i>
             </div>
-            <div class="control-panel-item" onclick="formatDoc('insertImage','NEED TO DO THIS MANUALLY');">
+            <!-- <div class="control-panel-item" onclick="let user_url=prompt('Enter URL here','http:\/\/');if(user_url&&user_url!=''&&user_url!='http://'){formatDoc('createlink', user_url)}">
+                <i class="fas fa-link"></i>
+            </div> -->
+            <div class="control-panel-item" onclick="addImage()">
                 <i class="fas fa-camera-retro"></i>
             </div>
             <div class="control-panel-item" onclick="formatDoc('insertImage','NEED TO DO THIS MANUALLY');">
@@ -49,7 +81,9 @@
         </div>
     </div>
 
-    <article id="new-post" class="blog-content" contenteditable="true"><p><b>Enter</b> <i>post</i> <u>here</u>...</p></article>
+    <article id="new-post" class="blog-content" contenteditable="true">
+        <p>Enter post here...</p>
+    </article>
 
     <div id="post-buttons">
         <button class="new-post-button" id="htmlToggle" onclick="toggleDocMode();">Show HTML</button>
@@ -63,7 +97,7 @@
         <input type="hidden" name="tags" required>
     </form>
 
-{% comment %} </div> {% endcomment %}
+    {% comment %} </div> {% endcomment %}
 
 <div id="tags-container" class="blog-tags-container">
     <div id="tags-header">
@@ -71,18 +105,27 @@
     </div>
 
     <ul id="tag-list">
-        <li class="blog-tag">#art</li>
-        <li class="blog-tag">#dev</li>
-        <li class="blog-tag">#life</li>
+        <li class="blog-tag">
+            <a>
+                #art
+            </a>
+        </li>
+        <li class="blog-tag">
+            <a>
+                #dev
+            </a>
+        </li>
+        <li class="blog-tag">
+            <a>
+                #life
+            </a>
+        </li>
 
         <input type="text" id="new-tag" placeholder="Add Tags Here" class="blog-tag blog-tag-input">
     </ul>
 
 </div>
 
-{% endblock main %}
-
-{% block scripts %}
-<script src="{% static 'blog/js/text-editor.js' %}"></script> 
-<script src="{% static 'blog/js/tag-list.js' %}"></script> 
-{% endblock scripts %}
+{% endblock main %} {% block scripts %}
+<script src="{% static 'blog/js/text-editor.js' %}"></script>
+<script src="{% static 'blog/js/tag-list.js' %}"></script> {% endblock scripts %}

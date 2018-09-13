@@ -2,7 +2,7 @@
     "version": 3,
     "mappings": "",
     "sources": [
-        "fonts.scss"
+        "../sass/fonts.scss"
     ],
     "names": [],
     "file": "fonts.css"

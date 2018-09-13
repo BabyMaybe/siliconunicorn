@@ -1,5 +1,13 @@
-{% extends "blog/base.html" %} {% load static %} {% block title %} Blog Post {% endblock title %} {% block css %}
-<link rel="stylesheet" type="text/css" href="{% static 'blog/css/post.css' %}" />{% endblock css %} {% block hero %}
+{% extends "blog/base.html" %}
+<!--  -->
+{% load static %}
+<!--  -->
+{% block title %} Blog Post {% endblock title %}
+<!--  -->
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'blog/css/post.css' %}" /> {% endblock css %}
+<!--  -->
+{% block hero %}
 <h1>{{ post.title }}</h1>
 {% endblock hero %}
 
@@ -13,7 +21,7 @@
 </nav>
 {% endblock top_nav %} {% block main %}
 <div class="spacer"></div>
-<article id="post-content">
+<article id="post-content" class="blog-content">
     {{ post.content | safe }}
 </article>
 <div id="tags-list" class="blog-tags-container">
@@ -65,14 +73,14 @@
                 <div class="comment-date-heart">
                     <div class="comment-date-time">
                         <span class="comment-date">{{ comment.timestamp | date:"n/j/y" }}</span>
-                        <span class="comment-time">{{ comment.timestamp | date:"h:i A" }}</span>
+                        <span class="comment-time">{{ comment.timestamp | date:"g:i A" }}</span>
                     </div>
                     {% if comment.is_edited %}
                     <span class="edited">(E)</span>
                     {% endif %}
                     <div class="comment-heart">
                         <span>{{ comment.likes.count }}</span>
-                        <i class="far fa-heart {% if comment.author == post.author %}author{% endif %}"></i>
+                        <i class="far fa-heart comment-heart-click {% if comment.author == post.author %}author{% endif %}"></i>
                     </div>
                 </div>
             </div>
@@ -82,7 +90,7 @@
             </div>
             <div class="comment-content">
                 {% if comment.active %}
-                <p>{{ comment.content }}</p> {% else %} [ DELETED ] {% endif %}
+                <p>{{ comment.content | escape }}</p> {% else %} [ DELETED ] {% endif %}
             </div>
             {% if comment.author == user %}
             <div class="comment-controls-background comment-controls-edit skewed"></div>

@@ -1,21 +1,19 @@
-$red:       #ff455e;
-$orange:    #ff7a46;
-$yellow:    #ffb847;
-$green:     #9cec67;
-$mint:      #89f0c8;
-$blue:      #7cedfc;
-$purplec:   #e373ff;
-$purpleb:   #bd56d7;
-$purple:    #b750d2;
-$black:     #2d2d2d;
-$grey:      #d9d9d9;
+$red: #ff455e;
+$orange: #ff7a46;
+$yellow: #ffb847;
+$green: #9cec67;
+$mint: #89f0c8;
+$blue: #7cedfc;
+$purplec: #e373ff;
+$purpleb: #bd56d7;
+$purple: #b750d2;
+$black: #2d2d2d;
+$grey: #d9d9d9;
 $lightgrey: #e9e9e9;
-
 
 $bluetext: #b6cee6;
 $mint-highlight: lighten($mint, 15%);
 $lightgreen: #67e25e;
-
 
 #color-display {
     display: flex;
@@ -48,4 +46,5 @@ $lightgreen: #67e25e;
     width: 170px;
     // flex: 1;
     // border: solid black;
+    text-align: center;
 }
