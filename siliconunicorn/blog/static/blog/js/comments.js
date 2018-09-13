@@ -234,6 +234,9 @@ function addComment(e) {
                     commentControls
                 );
                 document.getElementById("comment-input").value = "";
+                let commentCount = (document.getElementById(
+                    "comment-count"
+                ).textContent = `{ Comments: ${data.count} }`);
             }
         });
 }

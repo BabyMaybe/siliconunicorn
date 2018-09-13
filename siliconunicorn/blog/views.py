@@ -196,6 +196,8 @@ def ajax_comment_add(request):
                      'cid': new_comment.pk,
                      'isAuthor': new_comment.author == post.author,
                      'isAnonymous': is_anonymous,
+                     'count': format(post.post_comments.all().filter(
+                         active=True).count(), '04'),
                      'status': 'success'})
 
         return JsonResponse(data)
