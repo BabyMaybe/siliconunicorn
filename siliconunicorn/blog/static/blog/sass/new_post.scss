@@ -288,7 +288,7 @@ h2 {
         font-family: $arvo;
         display: flex;
         align-items: center;
-        width: 33%;
+        min-width: 33%;
         justify-content: center;
         &:hover {
             color: $red;

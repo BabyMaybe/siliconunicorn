@@ -38,11 +38,12 @@ let t;
 function removeTag(e) {
     e.preventDefault();
     let target = e.target;
+    let tag = e.target.closest("li.blog-tag");
     t = target;
-    if (target.tagName === "LI" && target.className === "blog-tag") {
+    if (tag) {
         let index = currentTags.indexOf(target.textContent);
         currentTags.splice(index, 1);
-        tagList.removeChild(target);
+        tagList.removeChild(tag);
         console.log(currentTags);
     }
 }

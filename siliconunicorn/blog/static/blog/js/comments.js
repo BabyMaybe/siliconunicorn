@@ -175,9 +175,9 @@ function addComment(e) {
                     ${
                         data.isAnonymous
                             ? `<span class="unregistered">(unregistered user)</span>
-                    < span class="comment-username anon"> ${
-                        data.display_author
-                    } </span >`
+                    <span class="comment-username anon">
+                    ${data.display_author}
+                     </span >`
                             : ""
                     }
                     ${

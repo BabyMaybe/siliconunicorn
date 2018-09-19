@@ -91,3 +91,5 @@ db.sqlite3
 venv
 
 siliconunicorn/siliconunicorn/local_settings\.prod\.py
+
+Content Prep/
