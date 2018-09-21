@@ -1,0 +1,122 @@
+#color-display {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  padding-top: 50px;
+}
+
+.red {
+  background-color: #ff455e;
+}
+
+.orange {
+  background-color: #ff7a46;
+}
+
+.yellow {
+  background-color: #ffb847;
+}
+
+.green {
+  background-color: #9cec67;
+}
+
+.mint {
+  background-color: #89f0c8;
+}
+
+.blue {
+  background-color: #7cedfc;
+}
+
+.purple {
+  background-color: #e373ff;
+}
+
+.colorbox {
+  height: 170px;
+  width: 170px;
+  text-align: center;
+}
+
+body {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background: #ff455e;
+  height: 100vh;
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+  color: black;
+}
+
+h1 {
+  padding: 0;
+  margin: 0;
+  font-family: "Arvo", serif;
+  font-size: 15em;
+}
+
+.error-box {
+  font-family: "Arvo", serif;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  text-align: center;
+  border: solid black 15px;
+  border-left: 0;
+  border-right: 0;
+  width: 100%;
+}
+
+a {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  color: black;
+  text-decoration: none;
+  width: 100%;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+a:hover {
+  color: #ff455e;
+  background-color: #2d2d2d;
+}
+
+h2 {
+  font-size: 5em;
+  font-family: "Josefin Sans", sans-serif;
+  padding: 0;
+  margin: 0;
+}
+
+p {
+  font-size: 3em;
+  margin: 0;
+  padding: 0;
+  margin-bottom: 0.5em;
+  font-family: "Josefin Sans", sans-serif;
+}
+/*# sourceMappingURL=errors.css.map */
