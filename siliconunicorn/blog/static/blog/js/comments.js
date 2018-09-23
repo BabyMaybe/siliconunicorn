@@ -13,24 +13,19 @@ function commentControls(e) {
     console.log("comment controls working");
 
     if (target.matches(".comment-edit")) {
-        let comment = commentContainer.getElementsByClassName(
-            "comment-content"
-        )[0].firstElementChild;
+        let comment = commentContainer.getElementsByClassName("comment-content")[0].firstElementChild;
         comment.contentEditable = true;
         comment.classList.add("editing");
         comment.focus();
 
-        commentContainer.getElementsByClassName(
-            "comment-controls"
-        )[0].innerHTML = '<span class="comment-save"> | | | Save | | | </span>';
+        commentContainer.getElementsByClassName("comment-controls")[0].innerHTML =
+            '<span class="comment-save"> | | | Save | | | </span>';
     }
 
     if (target.matches(".comment-save")) {
         endpoint = "/ajax/comment/edit";
 
-        let comment = commentContainer.getElementsByClassName(
-            "comment-content"
-        )[0].firstElementChild;
+        let comment = commentContainer.getElementsByClassName("comment-content")[0].firstElementChild;
         comment.contentEditable = false;
         comment.classList.remove("editing");
 
@@ -90,9 +85,7 @@ function commentControls(e) {
     }
 }
 
-document
-    .getElementById("post-hearts")
-    .firstElementChild.addEventListener("click", heartControls);
+document.getElementById("post-hearts").firstElementChild.addEventListener("click", heartControls);
 
 function heartControls(e) {
     const pid = this.dataset.pid;
@@ -168,9 +161,7 @@ function addComment(e) {
                     hour: "2-digit",
                     minute: "2-digit"
                 };
-                let newCommentHTML = `<li class="comment-container" data-cid="${
-                    data.cid
-                }">
+                let newCommentHTML = `<li class="comment-container" data-cid="${data.cid}">
                 <div class="comment-info ${data.isAuthor ? "author" : ""}">
                     ${
                         data.isAnonymous
@@ -180,42 +171,24 @@ function addComment(e) {
                      </span >`
                             : ""
                     }
-                    ${
-                        data.isAuthor
-                            ? `<span class="comment-username author">${
-                                  data.display_author
-                              }</span>`
-                            : ""
-                    }
+                    ${data.isAuthor ? `<span class="comment-username author">${data.display_author}</span>` : ""}
                     ${
                         !data.isAuthor && !data.isAnonymous
-                            ? `<span class="comment-username user">${
-                                  data.display_author
-                              }</span>`
+                            ? `<span class="comment-username user">${data.display_author}</span>`
                             : ""
                     }
                     <div class="comment-date-heart">
                         <div class="comment-date-time">
-                            <span class="comment-date">${date.toLocaleDateString(
-                                "en-US",
-                                dateOptions
-                            )}</span>
-                            <span class="comment-time">${date.toLocaleTimeString(
-                                "en-US",
-                                timeOptions
-                            )}</span>
+                            <span class="comment-date">${date.toLocaleDateString("en-US", dateOptions)}</span>
+                            <span class="comment-time">${date.toLocaleTimeString("en-US", timeOptions)}</span>
                         </div>
                         <div class="comment-heart">
                             <span>0</span>
-                            <i class="far fa-heart ${
-                                data.isAuthor ? "author" : ""
-                            }"></i>
+                            <i class="far fa-heart ${data.isAuthor ? "author" : ""} comment-heart-click"></i>
                         </div>
                     </div>
                 </div>
-                <div class="comment-background skewed ${
-                    data.isAuthor ? "author" : ""
-                }"></div>
+                <div class="comment-background skewed ${data.isAuthor ? "author" : ""}"></div>
                 <div class="comment-content">
                     <p>${data.content}</p>
                 </div>
@@ -229,14 +202,13 @@ function addComment(e) {
             </li>`;
                 comments.appendChild(newComment);
                 newComment.outerHTML = newCommentHTML;
-                editableComments[editableComments.length - 1].addEventListener(
-                    "click",
-                    commentControls
-                );
+                editableComments[editableComments.length - 1].addEventListener("click", commentControls);
+                hearts[hearts.length - 1].addEventListener("click", heartComment);
+
                 document.getElementById("comment-input").value = "";
-                let commentCount = (document.getElementById(
-                    "comment-count"
-                ).textContent = `{ Comments: ${data.count} }`);
+                let commentCount = (document.getElementById("comment-count").textContent = `{ Comments: ${
+                    data.count
+                } }`);
             }
         });
 }
