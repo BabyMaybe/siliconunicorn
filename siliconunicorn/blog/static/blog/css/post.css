@@ -669,6 +669,9 @@ body {
   border: none;
   margin: 0;
   padding: 0;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .blog-tags-container ul {
@@ -682,6 +685,26 @@ body {
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
   padding: 1em;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+
+#edit-post {
+  padding: 1em 0;
+  border-top: solid #7cedfc 3px;
+  width: 100%;
+  text-align: center;
+  cursor: pointer;
+}
+
+#edit-post:hover {
+  background-color: #7cedfc;
+  color: #2d2d2d;
+}
+
+#edit-post:active {
+  background-color: #c7f7fe;
 }
 
 #tags-list {

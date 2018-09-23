@@ -72,12 +72,31 @@ body {
     border: none;
     margin: 0;
     padding: 0;
+    align-items: center;
 
     ul {
         justify-content: center;
         flex-direction: row;
         flex-wrap: wrap;
         padding: 1em;
+        flex: 1;
+    }
+}
+
+#edit-post {
+    padding: 1em 0;
+    border-top: solid $post-color 3px;
+    width: 100%;
+    text-align: center;
+    cursor: pointer;
+
+    &:hover {
+        background-color: $post-color;
+        color: $black;
+    }
+
+    &:active {
+        background-color: $post-highlight;
     }
 }
 
@@ -337,13 +356,7 @@ body {
 }
 
 .comment-controls-edit {
-    background: repeating-linear-gradient(
-        90deg,
-        #7cedfc,
-        #7cedfc 4px,
-        transparent 4px,
-        transparent 40px
-    );
+    background: repeating-linear-gradient(90deg, #7cedfc, #7cedfc 4px, transparent 4px, transparent 40px);
     border-top: none;
 }
 
@@ -541,14 +554,7 @@ body {
 }
 
 #footer-lines {
-    background: repeating-linear-gradient(
-        -70deg,
-        $grey,
-        $grey 4px,
-        transparent 5px,
-        transparent 100px,
-        $grey 101px
-    );
+    background: repeating-linear-gradient(-70deg, $grey, $grey 4px, transparent 5px, transparent 100px, $grey 101px);
 
     background-color: $black;
     height: 500%;

@@ -82,7 +82,12 @@
     </div>
 
     <article id="new-post" class="blog-content" contenteditable="true">
-        <p>Enter post here...</p>
+        {% with content=post.content|safe %}
+        <!---->
+        {{content|default:"<p>Enter post here...</p>"}}
+        <!---->
+        {% endwith %}
+
     </article>
 
     <div id="post-buttons">

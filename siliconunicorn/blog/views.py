@@ -4,7 +4,8 @@ import datetime
 from django.shortcuts import redirect
 
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, ListView, DetailView
+from django.views.generic import CreateView, ListView, DetailView, UpdateView
+
 
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
@@ -16,24 +17,6 @@ from django.utils.text import slugify
 from .forms import UnicornUserCreationForm, CommentForm, BlogImageForm
 from .models import Post, UnicornUser, Tag, Comment
 # Create your views here.
-
-# def home(request):
-#     template = loader.get_template('blog/home.html')
-#     return HttpResponse(template.render({}, request))
-
-
-# def login(request):
-#     template = loader.get_template('blog/login.html')
-#     return HttpResponse(template.render({}, request))
-
-
-# def post(request):
-#     template = loader.get_template('blog/post.html')
-#     return HttpResponse(template.render({}, request))
-
-# def newPost(request):
-#     template = loader.get_template('blog/new_post.html')
-#     return HttpResponse(template.render({}, request))
 
 
 class SignUp(CreateView):
@@ -162,6 +145,19 @@ class PostDetail(DetailView):
         context['form'] = self.form_class(initial=self.initial)
         # context['comments'] = self.model.comments.all().order()
         return context
+
+
+class UpdatePost(UpdateView):
+    model = Post
+    template_name = 'blog/new_post.html'
+    context_object_name = 'post'
+    fields = ['content']
+
+    def get_object(self):
+        return Post.objects.get(slug=self.kwargs['slug'])
+
+    def get_success_url(self):
+        return reverse_lazy('post_detail', kwargs={'slug': self.object.slug})
 
 
 #  AJAX TESTS #

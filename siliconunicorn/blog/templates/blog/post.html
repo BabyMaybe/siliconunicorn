@@ -33,6 +33,11 @@
         </li>
         {% endfor %}
     </ul>
+    {% if post.author == user %}
+    <a href="{% url 'post_update' slug=post.slug %}" id="edit-post">
+        <div>Edit Post</div>
+    </a>
+    {% endif %}
 </div>
 {% endblock main %} {% block post_main %}
 <div id="post-info">
