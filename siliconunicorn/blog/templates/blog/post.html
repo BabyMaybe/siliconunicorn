@@ -2,7 +2,7 @@
 <!--  -->
 {% load static %}
 <!--  -->
-{% block title %} Blog Post {% endblock title %}
+{% block title %} {{ post.title }} {% endblock title %}
 <!--  -->
 {% block css %}
 <link rel="stylesheet" type="text/css" href="{% static 'blog/css/post.css' %}" /> {% endblock css %}
