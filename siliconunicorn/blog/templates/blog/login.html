@@ -17,18 +17,17 @@
     {% csrf_token %}
     <div class="form-element">
         <label for="id_username" class="form-label">:Enter Username:</label>
-        <input type="text" name="username" id="id_username" class="form-input">
+        <input type="text" name="username" id="id_username" class="form-input" autocomplete="username">
     </div>
 
     <div class="form-element">
         <label for="id_password" class="form-label">:Enter Password:</label>
-        <input type="password" name="password" id="id_password" class="form-input">
+        <input type="password" name="password" id="id_password" class="form-input" autocomplete="current-password">
     </div>
     {% if form.errors %}
     <p class=" label label-danger">
         Your username and password didn't match. Please try again.
-    </p>
-    {% endif %}
+    </p> {% endif %}
     <div class="form-element">
         <input type="submit" value="Login" class="form-btn">
     </div>

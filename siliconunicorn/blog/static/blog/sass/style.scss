@@ -380,6 +380,7 @@ p {
     display: flex;
     justify-content: flex-end;
     padding: 0 10px;
+    transition: 0.5s;
 }
 
 i {
@@ -398,6 +399,7 @@ i:active {
     margin: 0 10px;
     cursor: pointer;
     display: flex;
+    transition: 0.5s;
 }
 
 #copyright {
@@ -452,4 +454,14 @@ p {
 
 .hidden {
     display: none;
+}
+
+@media (max-width: 550px) {
+    #social {
+        font-size: 35px;
+
+        .social-icon {
+            margin: 0 8px;
+        }
+    }
 }

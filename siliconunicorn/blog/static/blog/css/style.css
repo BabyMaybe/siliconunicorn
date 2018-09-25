@@ -522,6 +522,8 @@ p {
       -ms-flex-pack: end;
           justify-content: flex-end;
   padding: 0 10px;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
 }
 
 i {
@@ -542,6 +544,8 @@ i:active {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
 }
 
 #copyright {
@@ -594,5 +598,14 @@ p u {
 
 .hidden {
   display: none;
+}
+
+@media (max-width: 550px) {
+  #social {
+    font-size: 35px;
+  }
+  #social .social-icon {
+    margin: 0 8px;
+  }
 }
 /*# sourceMappingURL=style.css.map */
