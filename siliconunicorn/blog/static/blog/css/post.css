@@ -639,6 +639,14 @@ body {
   padding: 11px;
 }
 
+.nav-item-mobile {
+  display: none;
+}
+
+.nav-item-full {
+  display: block;
+}
+
 .nav-item:hover {
   background-color: #c7f7fe;
 }
@@ -1454,6 +1462,38 @@ body {
   }
   #social .social-icon {
     margin: 0 6px;
+  }
+}
+
+@media (max-width: 385px) {
+  #accounts {
+    display: none;
+  }
+  #hero {
+    padding: 2em;
+  }
+  #post-content {
+    padding: 2em;
+    text-align: center;
+  }
+  .nav-item {
+    font-size: 0.8em;
+  }
+}
+
+@media (max-width: 320px) {
+  #post-content {
+    padding: 1.5em;
+  }
+  .nav-item {
+    font-size: 1.5em;
+    font-weight: bold;
+  }
+  .nav-item-full {
+    display: none;
+  }
+  .nav-item-mobile {
+    display: block;
   }
 }
 /*# sourceMappingURL=post.css.map */

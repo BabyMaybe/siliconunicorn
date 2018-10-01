@@ -15,9 +15,13 @@
 
 {% block top_nav %}
 <nav id="nav-page" class="nav">
-    <a href="{{ post.get_next_post_url }}" class="nav-item" id="next-btn">&lt;&lt; Newer Post</a>
-    <a href="{% url 'home' %}" class="nav-item" id="home-btn"> == Home ==</a>
-    <a href="{{ post.get_prev_post_url }}" class="nav-item" id="back-btn">Older Post &gt;&gt</a>
+    <a href="{{ post.get_next_post_url }}" class="nav-item nav-item-full" id="next-btn">&lt;&lt; Newer Post</a>
+    <a href="{% url 'home' %}" class="nav-item nav-item-full" id="home-btn"> == Home ==</a>
+    <a href="{{ post.get_prev_post_url }}" class="nav-item nav-item-full" id="back-btn">Older Post &gt;&gt</a>
+    <!-- Mobile nav -->
+    <a href="{{ post.get_next_post_url }}" class="nav-item nav-item-mobile" id="next-btn">&lt;&lt;</a>
+    <a href="{% url 'home' %}" class="nav-item nav-item-mobile" id="home-btn"> == ==</a>
+    <a href="{{ post.get_prev_post_url }}" class="nav-item nav-item-mobile" id="back-btn">&gt;&gt</a>
 </nav>
 {% endblock top_nav %} {% block main %}
 <div class="spacer"></div>
