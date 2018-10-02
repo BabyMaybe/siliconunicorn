@@ -93,18 +93,24 @@
 {% endfor %} {% endblock main %} {% block post_main %}{% endblock post_main %} {% block bot_nav %}
 <nav id="nav-page" class="nav">
     {% if page_obj.has_previous %}
-    <a href="?page={{ page_obj.previous_page_number }}" class="nav-item" id="back-btn">&lt;&lt; Newer</a>
+    <a href="?page={{ page_obj.previous_page_number }}" class="nav-item nav-item-full cat" id="back-btn">&lt;&lt; Newer this should not show up</a>
+    <a href="?page={{ page_obj.previous_page_number }}" class="nav-item nav-item-mobile" id="back-btn">&lt;&lt;</a>
     {% else %}
-    <a href="" class="nav-item nav-disabled" id="back-btn">&lt;&lt; Newer</a>
+    <a href="" class="nav-item nav-disabled nav-item-full" id="back-btn">&lt;&lt; Newer</a>
+    <a href="" class="nav-item nav-disabled nav-item-mobile" id="back-btn">&lt;&lt;</a>
     {% endif %}
 
-    <a href="{% url 'home' %}" class="nav-item" id="home-btn"> == Home ==</a>
+    <a href="{% url 'home' %}" class="nav-item nav-item-full" id="home-btn"> == Home ==</a>
+    <a href="{% url 'home' %}" class="nav-item nav-item-mobile" id="home-btn"> == ==</a>
 
     {% if page_obj.has_next %}
-    <a href="?page={{ page_obj.next_page_number }}" class="nav-item" id="next-btn">Older &gt;&gt;</a>
+    <a href="?page={{ page_obj.next_page_number }}" class="nav-item nav-item-full" id="next-btn">Older &gt;&gt;</a>
+    <a href="?page={{ page_obj.next_page_number }}" class="nav-item nav-item-mobile" id="next-btn">&gt;&gt</a>
     {% else %}
-    <a href="" class="nav-item nav-disabled" id="next-btn">Older &gt;&gt;</a>
+    <a href="" class="nav-item nav-disabled nav-item-full" id="next-btn">Older &gt;&gt;</a>
+    <a href="" class="nav-item nav-item-mobile nav-disabled" id="next-btn">&gt;&gt</a>
     {% endif %}
 </nav>
+
 {% endblock bot_nav %} {% comment %} use default footer block {% endcomment %} {% block scripts %}
 <script src="{% static 'blog/js/home.js' %}"></script> {% endblock scripts %}

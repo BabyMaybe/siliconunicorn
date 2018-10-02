@@ -600,6 +600,15 @@ p u {
   display: none;
 }
 
+@media (max-width: 550px) {
+  #social {
+    font-size: 35px;
+  }
+  #social .social-icon {
+    margin: 0 8px;
+  }
+}
+
 body {
       grid-template-areas: "header" "nav-blog" "main" "footer";
   -ms-grid-rows: 256px 80px 1fr 93px;

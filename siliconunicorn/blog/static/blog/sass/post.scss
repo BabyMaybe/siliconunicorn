@@ -187,7 +187,6 @@ body {
 
 .heart:hover {
     i {
-        // color: $red;
         span {
             color: $red;
         }
@@ -330,14 +329,10 @@ body {
 
 .comment-content {
     grid-area: comment;
-    // padding: 0 10em;
-    // padding-left: 12em;
     color: $bluetext;
     line-height: 1.5;
     font-size: 1em;
-    // grid-column: 1/4;
     grid-row: 1;
-    // margin: 0 auto;
     display: flex;
     justify-content: center;
     p {
@@ -349,8 +344,6 @@ body {
 .comment-controls-background {
     background-color: $post-color;
     border-top: solid $black 6px;
-    // transform: skewX(-30deg) scaleX(200);
-    // transform-origin: left;
     grid-area: controls;
     z-index: 0;
     width: 200%;
@@ -411,21 +404,6 @@ body {
     top: 6px;
     z-index: 2;
 }
-
-// .comment-heart {
-//   grid-area: controls;
-//   z-index: 1;
-//   font-size: 3em;
-//   height: 100%;
-//   display: flex;
-//   align-items: flex-end;
-//   padding-right: 0.5em;
-
-//   i {
-//     transition: 0.2s;
-//     padding: 10px;
-//   }
-// }
 
 .comment-date-heart {
     display: flex;
@@ -704,13 +682,16 @@ body {
     }
 }
 
-@media (max-width: 575px) {
-    .nav {
-        font-size: 1.15em;
-    }
+@media (max-width: 585px) {
+    // .nav {
+    //     font-size: 1.15em;
+    // }
 
-    .nav-item {
-        padding: 14px 0;
+    #nav-page {
+        .nav-item {
+            padding: 14px 0;
+            // font-size: 0.95em;
+        }
     }
 
     #post-info {
@@ -756,5 +737,32 @@ body {
         .social-icon {
             margin: 0 6px;
         }
+    }
+}
+
+@media (max-width: 385px) {
+    #accounts {
+        display: none;
+    }
+
+    #hero {
+        padding: 2em;
+    }
+
+    #post-content {
+        padding: 2em;
+        text-align: center;
+    }
+
+    #nav-page {
+        .nav-item {
+            font-size: 1.5em;
+        }
+    }
+}
+
+@media (max-width: 320px) {
+    #post-content {
+        padding: 1.5em;
     }
 }
